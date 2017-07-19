@@ -15,7 +15,7 @@
     color: #ecf0f1;
 
     padding: 20px;
-    padding-bottom: 40px
+    padding-bottom: 30px
   }
 
   main {
@@ -52,6 +52,15 @@
     letter-spacing: 0.03em;
     font-size: 1.4em;
   }
+
+  footer {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 50px;
+    color: #7f8c8d;
+    letter-spacing: 0.06em;
+  }
 </style>
 
 <template>
@@ -59,11 +68,19 @@
     <main>
       <router-view></router-view>
     </main>
+    <footer>
+      Nadespots - Experiment created by Niels 'Animosity' Lanting - All images belong to their respective owners - {{ this.currentYear }}
+    </footer>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'app'
+    name: 'app',
+    computed: {
+      currentYear () {
+        return new Date().getFullYear()
+      }
+    }
   }
 </script>

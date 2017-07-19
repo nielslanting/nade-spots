@@ -22,17 +22,59 @@
 
   .box.game {
     margin-top: 10px;
-    background-color: #34495e;
-    min-height: 200px;
+    min-height: 300px;
     border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .box.game > a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: #ecf0f1;
+    font-size: 0.9em;
+    width: 100%;
+    line-height: 300px;
+    max-height: 300px;
+    opacity: 0;
+  }
+
+  .box.game:hover > a {
+    opacity: 100;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 
   .logo {
     width: 100px;
     transform: rotate(-15deg);
+  }
+
+  .dropShadow
+  {
+      position:relative;
+      box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  }
+  .dropShadow:before, .dropShadow:after
+  {
+    content:"";
+      position:absolute; 
+      z-index:-1;
+      box-shadow:0 0 20px rgba(0,0,0,0.8);
+      top:0;
+      bottom:0;
+      left:10px;
+      right:10px;
+      border-radius:100px / 10px;
+  } 
+  .dropShadow:after
+  {
+      right:10px; 
+      left:auto; 
+      transform:skew(8deg) rotate(3deg);
   }
 </style>
 
@@ -70,19 +112,17 @@
     </div>
 
     <div class="row center-xs">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div class="box game">
-          <loader></loader>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div class="box game">
-          <loader></loader>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-        <div class="box game">
-          <loader></loader>
+      <div
+        class="col-xs-6 col-sm-3 col-md-2 col-lg-2"
+        v-for="game in popularGames"
+      >
+        <div
+          class="box game dropShadow"
+          :style="`background-image:url(${game.thumbnail})`"
+        >
+          <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }">
+            {{ game.title }} 
+          </router-link>
         </div>
       </div>
     </div>
@@ -108,7 +148,32 @@
         keyword: '',
         searchValue: '',
         games: [],
-        options: []
+        options: [],
+        popularGames: [{
+          title: 'Black Squad',
+          slug: 'black-squad',
+          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Black%20Squad-272x380.jpg'
+        }, {
+          title: 'S.K.I.L.L.: Special Force 2',
+          slug: 'skill-special-force-2',
+          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/S.K.I.L.L.:%20Special%20Force%202-272x380.jpg'
+        }, {
+          title: 'Counter Strike: Global Offensive',
+          slug: 'counter-strike-global-offensive',
+          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg'
+        }, {
+          title: 'Alliance of Valiant Arms',
+          slug: 'alliance-of-valiant-arms',
+          thumbnail: 'http://i.imgur.com/91lkMZv.png'
+        }, {
+          title: 'Warface',
+          slug: 'warface',
+          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Warface-272x380.jpg'
+        }, {
+          title: 'Crossfire',
+          slug: 'crossfire',
+          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/CrossFire-272x380.jpg'
+        }]
       }
     },
     computed: {
