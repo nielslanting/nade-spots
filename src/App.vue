@@ -1,54 +1,69 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body, html {
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    margin: 0;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+
+    padding: 20px;
+    padding-bottom: 40px
+  }
+
+  main {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  /* Let's get this party started */
+  ::-webkit-scrollbar {
+      width: 6px;
+  }
+   
+  /* Track */
+  ::-webkit-scrollbar-track {
+      border-radius: 3px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      background: #ecf0f1; 
+  }
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #bdc3c7; 
+  }
+  h1 > em {
+    font-style: normal;
+    color: #CD9600;
+  }
+
+  h2 {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.4em;
+  }
+</style>
+
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'app'
+  }
 </script>
-
-<style>
-body {
-  margin: 0;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
-}
-
-header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
-}
-</style>
