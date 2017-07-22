@@ -12,6 +12,21 @@
     background-repeat: no-repeat;
   }
 
+  .box.map > a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: #ecf0f1;
+    font-size: 0.9em;
+    width: 100%;
+    line-height: 150px;
+    max-height: 150px;
+  }
+
+  .box.map:hover > a {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
   .title-col { text-align: left; }
   .dropShadow
   {
@@ -36,34 +51,66 @@
       left:auto; 
       transform:skew(8deg) rotate(3deg);
   }
+
+  .back-button {
+    color: #bdc3c7;
+    background-color: #34495e;
+    padding: 5px;
+    border-radius: 3px;
+    text-decoration: none; 
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .back-button:hover {
+    color: #ecf0f1;
+  }
+
+  .map-selection {
+    margin-top: 20px;
+  }
 </style>
 <template>
   <div>
+
+    <logo></logo>
+
     <div class="row">
       <div class="col-xs-12 title-col">
         <h2>
           Map Selection
         </h2>
+        <router-link :to="{name: 'Home'}" class="back-button">
+          &#x25C2; Choose another game
+        </router-link>
       </div>
     </div>
 
     <div
-      class="row center-xs"
-      v-if="maps && maps.length > 0"
+      class="row center-xs map-selection"
+      v-show="maps && maps.length > 0"
     >
       <div
         v-for="map in maps"
-        class="col-xs-6 col-sm-6 col-md-6 col-lg-4"
+        class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
       >
         <div
           class="box map dropShadow"
           :style="`background-image:url(${map.thumbnail})`"
         >
-          {{ map.name }}
+          <router-link :to="{ name: 'Dashboard', params: {
+            map: map.slug  
+          }}">
+            {{ map.name }}
+          </router-link>
         </div>
       </div>
     </div>
-    <p v-else>
+
+    <p v-show="fetchingMaps">
+      Loading maps...
+    </p>
+
+    <p v-show="!fetchingMaps && (!maps || maps.length === 0)">
       No maps found for this game.
     </p>
   </div>
@@ -71,12 +118,15 @@
 
 <script>
   import gql from 'graphql-tag'
+  import Logo from '@/components/Logo'
 
   export default {
     name: 'MapSelection',
+    components: { Logo },
     data () {
       return {
-        maps: []
+        maps: [],
+        fetchingMaps: 0
       }
     },
     apollo: {
@@ -101,7 +151,8 @@
         },
         update (data) {
           return data.game.maps
-        }
+        },
+        loadingKey: 'fetchingMaps'
       }
     }
   }

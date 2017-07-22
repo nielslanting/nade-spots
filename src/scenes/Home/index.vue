@@ -11,7 +11,6 @@
   }
 
   .row {
-    max-width: 1200px;
     padding: 0;
     margin: 0 auto;
   }
@@ -48,11 +47,6 @@
     background-color: rgba(0, 0, 0, 0.7);
   }
 
-  .logo {
-    width: 100px;
-    transform: rotate(-15deg);
-  }
-
   .dropShadow
   {
       position:relative;
@@ -80,12 +74,8 @@
 
 <template>
   <div>
-    <div>
-      <img class="logo" src="../../assets/logo.svg" alt="Nadespots logo">
-      <h1>
-        Nade<em>spots</em>
-      </h1>
-    </div>
+
+    <logo></logo>
 
     <div class="row">
       <div class="col-xs-12">
@@ -133,6 +123,7 @@
   import _ from 'lodash'
   import slug from 'slug'
   import Loader from '@/components/Loader'
+  import Logo from '@/components/Logo'
   import SearchBar from './components/SearchBar'
 
   const TWITCH_API_KEY = 'atdov855pxy9wlq6wbo6kg3w8psf01'
@@ -141,7 +132,8 @@
     name: 'Search',
     components: {
       SearchBar,
-      Loader
+      Loader,
+      Logo
     },
     data () {
       return {

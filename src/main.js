@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 
 import 'isomorphic-fetch'
@@ -7,11 +5,16 @@ import 'flexboxgrid'
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client'
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+import VueApollo from 'vue-apollo'
+
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
 
+// Setting up Apollo
 const networkInterface = createNetworkInterface({
   uri: 'https://api.graph.cool/simple/v1/cj59tz3nfrlhy0105885qy550',
   transportBatching: true
@@ -32,14 +35,20 @@ const apolloClient = new ApolloClient({
   connectToDevTools: true
 })
 
-import VueApollo from 'vue-apollo'
-Vue.use(VueApollo)
-
 const apolloProvider = new VueApollo({
   clients: {
     a: apolloClient
   },
   defaultClient: apolloClient
+})
+
+Vue.use(VueApollo)
+
+// Setting up Google Maps
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyB5Bito_jYPWhhjLWyX9FcUpZyKASo7jtM'
+  }
 })
 
 /* eslint-disable no-new */

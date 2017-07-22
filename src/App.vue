@@ -10,12 +10,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    margin: 0;
     background-color: #2c3e50;
     color: #ecf0f1;
 
     padding: 20px;
-    padding-bottom: 30px
+    padding-bottom: 30px;
+    padding-top: 0;
+
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   main {

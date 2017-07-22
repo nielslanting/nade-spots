@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/scenes/Home'
 import MapSelection from '@/scenes/MapSelection'
+import Dashboard from '@/scenes/Dashboard'
 
 Vue.use(Router)
 
@@ -16,6 +17,10 @@ export default new Router({
       path: '/:game',
       name: 'MapSelection',
       component: MapSelection
+    }, {
+      path: '/:game/:map',
+      name: 'Dashboard',
+      component: Dashboard
     }
   ]
 })
