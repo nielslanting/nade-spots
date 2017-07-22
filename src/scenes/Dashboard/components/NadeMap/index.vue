@@ -21,35 +21,21 @@
     <gmap-map
       ref="map"
       :class="{ map: true, loaded: mapLoaded }"
-      :center="{ lat: -85.05112877980659, lng: 180 }"
+      :center="{ lat: 0, lng: 0 }"
       :streetViewControl="false"
       :options="{ streetViewControl: false, mapTypeControl: false }"
-      :zoom="0"
+      :zoom="1"
       :mapTypeControl="false"
       @idle="handleMapLoaded"
       @maptypeid_changed="handleMapTypeIdChange"
-      @resize="handleMapResize"
+      @click="handleMapClick"
     ></gmap-map>
+    <button @click="handleButtonClick">DoStuff</button>
   </div>
 </template>
 
 <script>
   /* eslint-disable */
-
-  function point2LatLng(point, map) {
-    var topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
-    var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
-    var scale = Math.pow(2, map.getZoom());
-    var worldPoint = new google.maps.Point(point.x / scale + bottomLeft.x, point.y / scale + topRight.y);
-    return map.getProjection().fromPointToLatLng(worldPoint);
-  }
-
-  function tile2long(x,z) { return (x/Math.pow(2,z)*360-180); }
-
-  function tile2lat(y,z) {
-    var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
-    return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
-  }
 
   export default {
     name: 'Map',
@@ -57,13 +43,13 @@
       return {
         mapTypeId: 'Terrain',
         mapLoaded: false,
-        sourceImg: new Image(612, 612),
+        sourceImg: new Image(1024, 1024),
       }
     },
     mounted () {
       this.$refs.map.resizePreserveCenter()
       this.sourceImg.setAttribute('crossOrigin', 'anonymous');
-      this.sourceImg.src = 'http://i.imgur.com/VTooZiV.png';
+      this.sourceImg.src = 'http://i.imgur.com/9oFUzzo.png';
 
       window.addEventListener('resize', this.restoreCenter);
     },
@@ -71,6 +57,36 @@
       window.removeEventListener('resize', this.restoreCenter);
     },
     methods: {
+      setCenterPixel(x, y) {
+        const projection = this.$refs.map.$mapObject.getProjection();
+        const coord = projection.fromPointToLatLng(new google.maps.Point(x, y));
+
+        console.log('setCenter', coord.lat(), coord.lng());
+        this.$refs.map.$mapObject.setCenter(coord);
+      },
+
+      handleMapClick(e) {
+        console.log('mapClick', e);
+      },
+
+      handleButtonClick() {
+        const projection = this.$refs.map.$mapObject.getProjection();
+
+        var flightPlanCoordinates = [
+          projection.fromPointToLatLng(new google.maps.Point(112, 355)),
+          projection.fromPointToLatLng(new google.maps.Point(130, 250)),
+        ];
+
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: false,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+        });
+
+        flightPath.setMap(this.$refs.map.$mapObject);
+      },
 
       restoreCenter() {
         const map = this.$refs.map.$mapObject;
@@ -84,7 +100,7 @@
         var projection = this.$refs.map.$mapObject.getProjection();
         console.log('projection', projection);
         var coordinates = projection.fromPointToLatLng(
-            new google.maps.Point(512, 512)
+            new google.maps.Point(256, 256)
         );
 
         console.log('coords', coordinates);
@@ -174,9 +190,9 @@
             this.cache[id] = dataUrl;
             return dataUrl;
           },
-          tileSize: new google.maps.Size(512, 512),
+          tileSize: new google.maps.Size(256, 256),
           maxZoom: 4,
-          minZoom: -4,
+          minZoom: 0,
           radius: 1,
           name: 'Brooklyn'
         });
