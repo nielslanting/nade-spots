@@ -1,7 +1,7 @@
 <style scoped>
   .logo-container {
     text-align: left;
-  } 
+  }
 
   main,
   aside {
@@ -25,7 +25,7 @@
     position: relative;
   }
 
-  a { 
+  a {
     display: block;
     text-decoration: none;
     color: #ecf0f1;
@@ -44,6 +44,18 @@
     padding-left: 0;
     border-bottom: 1px solid #7f8c8d;
   }
+
+
+  input,
+  select {
+    border: 0;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+  }
+
 </style>
 
 <template>
@@ -72,10 +84,10 @@
               <b>Type:</b>
               <br />
               <select>
-                <option value="">Grenade</option> 
-                <option value="">Flash</option> 
-                <option value="">Smoke</option> 
-                <option value="">Grenade Launcher</option> 
+                <option value="">Grenade</option>
+                <option value="">Flash</option>
+                <option value="">Smoke</option>
+                <option value="">Grenade Launcher</option>
               </select>
             </div>
 
@@ -83,11 +95,11 @@
               <b>Rating:</b>
               <br />
               <select>
-                <option value="">*****</option> 
-                <option value="">****</option> 
-                <option value="">***</option> 
-                <option value="">**</option> 
-                <option value="">*</option> 
+                <option value="">*****</option>
+                <option value="">****</option>
+                <option value="">***</option>
+                <option value="">**</option>
+                <option value="">*</option>
               </select>
             </div>
 
@@ -95,9 +107,9 @@
               <b>Sorting:</b>
               <br />
               <select>
-                <option value="">Popular</option> 
-                <option value="">Recent Popular</option> 
-                <option value="">Newest</option> 
+                <option value="">Popular</option>
+                <option value="">Recent Popular</option>
+                <option value="">Newest</option>
               </select>
             </div>
           </div>
