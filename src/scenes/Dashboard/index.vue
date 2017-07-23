@@ -66,11 +66,11 @@
         <aside class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
           <div class="box back-button">
             <router-link :to="{name: 'MapSelection'}">
-              < Map selection
+              <i class="icon ion-android-arrow-back"></i> Map selection
             </router-link>
           </div>
           <div class="box add-button">
-            + Add new
+            <i class="icon ion-plus-round"></i> Add new
           </div>
           <div class="box side-menu">
             <div>

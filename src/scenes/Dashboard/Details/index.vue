@@ -92,6 +92,7 @@
     background-color: #2c3e50;
   }
 
+  .description { text-align: left; }
 </style>
 
 <template>
@@ -126,7 +127,7 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg">
-            <div class="content">
+            <div class="content description">
               {{ entry.description || '' }}
             </div>
           </div>
