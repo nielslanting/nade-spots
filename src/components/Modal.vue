@@ -16,7 +16,7 @@
     position: relative;
     background-color: #34495e;
     margin: 20px;
-    padding: 20px;
+    padding: 15px;
     height: calc(100% - 40px);
     border-radius: 3px;
     overflow-y: scroll;
@@ -26,27 +26,29 @@
   .modal .close {
     position: absolute;
     top: 10px;
-    right: 10px;
-    background-color: red;
-    width: 32px;
-    height: 32px;
+    right: 7px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #7f8c8d;
+    color: #ecf0f1;
     border-radius: 3px;
     cursor: pointer;
+    font-size: 1.8em;
   }
 
   .modal .close:hover {
-    background-color: #CD9600;
+    color: #CD9600;
   }
 </style>
 
 <template>
   <div class="modal-container" @scroll.stop.prevent>
     <div class="modal" @scroll.stop.prevent>
-      <div class="close" @click="$emit('close')">X</div>
+      <div class="close" @click="$emit('close')">
+        <i class="icon ion-close"></i>  
+      </div>
       <slot @scroll.stop.prevent></slot>
     </div>
   </div>

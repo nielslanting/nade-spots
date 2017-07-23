@@ -103,38 +103,35 @@
 
     <div class="details row center-xs">
       <!-- Side menu -->
-      <div class="details-menu col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <div class="details-menu col-xs-12 col-sm-12 col-md-12 col-lg-3">
         <div class="row center-xs">
           <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
             <div class="button">
-              Video
+              <i class="icon ion-social-youtube"></i> Video
             </div>
           </div>
           <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
             <div class="button">
-              Images
+              <i class="icon ion-image"></i> Images
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="upvote">
-              Up
+              <i class="icon ion-arrow-up-a"></i> 100
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="downvote">
-              Down
+              <i class="icon ion-arrow-down-a"></i> 23
             </div>
           </div>
         </div>
       </div>
 
       <!-- Main content -->
-      <div class="details-content col-xs-12 col-sm-8 col-md-9 col-lg-9">
+      <div class="details-content col-xs-12 col-sm-12 col-md-12 col-lg-9">
         <div class="content">
-
-          <youtube id="YzqFUJGkjc4"></youtube>
-
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus purus diam, non ornare nibh congue nec. Aliquam quis molestie arcu. Sed mollis dictum lorem, vitae rhoncus nulla pretium ut. Proin at nulla laoreet, interdum dolor ut, fermentum augue. Nunc gravida erat at tristique accumsan. Suspendisse luctus congue est, non efficitur elit blandit non. Etiam suscipit convallis dignissim. Aenean placerat, libero quis gravida tincidunt, felis magna suscipit dui, eu mattis ligula diam a est.
+          <player id="YzqFUJGkjc4" :start="38" :end="44"></player>
         </div>
       </div>
     </div>
@@ -142,10 +139,10 @@
 </template>
 
 <script>
-  import Youtube from './components/Youtube'
+  import Player from './components/Player'
 
   export default {
     name: 'Details',
-    components: { Youtube }
+    components: { Player }
   }
 </script>

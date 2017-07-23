@@ -9,6 +9,8 @@ import VueApollo from 'vue-apollo'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+import Youtube from 'vue-youtube-embed'
+
 import App from './App'
 import router from './router'
 
@@ -50,6 +52,9 @@ Vue.use(VueGoogleMaps, {
     key: 'AIzaSyB5Bito_jYPWhhjLWyX9FcUpZyKASo7jtM'
   }
 })
+
+// Setting up Youtube player
+Vue.use(Youtube)
 
 /* eslint-disable no-new */
 new Vue({

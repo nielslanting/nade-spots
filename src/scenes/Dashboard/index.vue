@@ -45,7 +45,6 @@
     border-bottom: 1px solid #7f8c8d;
   }
 
-
   input,
   select {
     border: 0;
