@@ -128,7 +128,7 @@
           v-if="$route.name === 'DashboardDetails'"
           @close="$router.push({ name: 'Dashboard' })"
         >
-          <router-view></router-view>
+          <router-view :entries="entries"></router-view>
         </modal>
       </div>
 
@@ -154,17 +154,63 @@
             x: 136.80555725097656,
             y: 111.61284637451172
           }],
-          color: 'red'
+          color: 'red',
+          description: 'Line the right side of the vent up with the right side of the pole. Run forwards as soon as the pole disappears behind the vent, jump throw the grenade.',
+          video: {
+            id: 'YzqFUJGkjc4',
+            start: 38,
+            end: 44
+          },
+          title: 'Defensive mid window nade',
+          author: 'Animosity',
+          votes: {
+            up: 1337,
+            down: 666
+          }
         }, {
           id: 2,
           locations: [{
-            x: 0,
-            y: 0
-          }, {
-            x: 100,
+            x: 95,
             y: 100
+          }, {
+            x: 65,
+            y: 160
           }],
-          color: 'purple'
+          color: 'red',
+          description: 'Line the left side of the crosshair up with the left side of the pipe. Line the left side of the crosshair up with the right side of the lamp. Jump throw.',
+          video: {
+            id: 'YzqFUJGkjc4',
+            start: 28,
+            end: 37
+          },
+          title: 'Agressive B window nade',
+          author: 'Animosity',
+          votes: {
+            up: 1337,
+            down: 666
+          }
+        }, {
+          id: 3,
+          locations: [{
+            x: 110,
+            y: 158
+          }, {
+            x: 136.80555725097656,
+            y: 111.61284637451172
+          }],
+          color: 'red',
+          description: 'Place the crosshair in the center of the edges of the roof.',
+          video: {
+            id: 'YzqFUJGkjc4',
+            start: 45,
+            end: 50
+          },
+          title: 'Agressive mid window nade from connector',
+          author: 'Animosity',
+          votes: {
+            up: 1337,
+            down: 666
+          }
         }]
       }
     },

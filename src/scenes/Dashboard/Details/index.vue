@@ -97,43 +97,54 @@
 <template>
   <div class="details-container">
     <div class="details-header">
-      <h1>Nade title</h1>
-      <h2>By Animosity</h2>
+      <h1>{{ entry.title || '' }}</h1>
+      <h2>By {{ entry.author || 'unknown' }}</h2>
     </div>
 
     <div class="details row center-xs">
       <!-- Side menu -->
-      <div class="details-menu col-xs-12 col-sm-12 col-md-12 col-lg-3">
+      <div class="details-menu col-xs-12 col-sm-12 col-md-12 col-lg-3 last-xs last-sm last-md">
         <div class="row center-xs">
-          <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="button">
               <i class="icon ion-social-youtube"></i> Video
             </div>
           </div>
-          <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="button">
               <i class="icon ion-image"></i> Images
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="upvote">
-              <i class="icon ion-arrow-up-a"></i> 100
+              <i class="icon ion-arrow-up-a"></i> {{ entry.votes.up || '0' }}
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="downvote">
-              <i class="icon ion-arrow-down-a"></i> 23
+              <i class="icon ion-arrow-down-a"></i> {{ entry.votes.down || '0' }}
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg">
+            <div class="content">
+              {{ entry.description || '' }}
             </div>
           </div>
         </div>
       </div>
 
       <!-- Main content -->
-      <div class="details-content col-xs-12 col-sm-12 col-md-12 col-lg-9">
+      <div class="details-content col-xs-12 col-sm-12 col-md-12 col-lg-9 last-lg">
         <div class="content">
-          <player id="YzqFUJGkjc4" :start="38" :end="44"></player>
+          <player
+            v-if="entry && entry.video && entry.video.id"
+            :id="entry.video.id"
+            :start="entry.video.start"
+            :end="entry.video.end"
+          ></player>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -143,6 +154,12 @@
 
   export default {
     name: 'Details',
-    components: { Player }
+    props: ['entries'],
+    components: { Player },
+    computed: {
+      entry () {
+        return this.entries.filter(x => x.id === this.$route.params.detailId)[0]
+      }
+    }
   }
 </script>
