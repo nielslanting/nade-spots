@@ -117,9 +117,20 @@
 
         <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
-            <nade-map></nade-map>
+            <nade-map
+              :entries="entries"
+              @click="handleMapClick"
+            ></nade-map>
           </div>
         </main>
+
+
+        <modal
+          v-if="$route.name === 'DashboardDetails'"
+          @close="$router.push({ name: 'Dashboard' })"
+        >
+          <router-view></router-view>
+        </modal>
       </div>
 
     </div>
@@ -128,10 +139,46 @@
 
 <script>
   import Logo from '@/components/Logo'
+  import Modal from '@/components/Modal'
   import NadeMap from './components/NadeMap'
 
   export default {
     name: 'Dashboard',
-    components: { Logo, NadeMap }
+    data () {
+      return {
+        entries: [{
+          id: 1,
+          locations: [{
+            x: 124.80555725097656,
+            y: 199.1128463745117
+          }, {
+            x: 136.80555725097656,
+            y: 111.61284637451172
+          }],
+          color: 'red'
+        }, {
+          id: 2,
+          locations: [{
+            x: 0,
+            y: 0
+          }, {
+            x: 100,
+            y: 100
+          }],
+          color: 'purple'
+        }]
+      }
+    },
+    components: { Logo, NadeMap, Modal },
+    methods: {
+      handleMapClick (id) {
+        this.$router.push({
+          name: 'DashboardDetails',
+          params: {
+            detailId: id
+          }
+        })
+      }
+    }
   }
 </script>

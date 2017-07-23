@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/scenes/Home'
 import MapSelection from '@/scenes/MapSelection'
 import Dashboard from '@/scenes/Dashboard'
+import DashboardDetails from '@/scenes/Dashboard/Details'
 
 Vue.use(Router)
 
@@ -20,7 +21,12 @@ export default new Router({
     }, {
       path: '/:game/:map',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      children: [{
+        path: '/:game/:map/:detailId',
+        name: 'DashboardDetails',
+        component: DashboardDetails
+      }]
     }
   ]
 })
