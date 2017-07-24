@@ -76,7 +76,9 @@
             </router-link>
           </div>
           <div class="box add-button">
-            <i class="icon ion-plus-round"></i> Add new
+            <router-link :to="{name: 'DashboardAdd'}">
+              <i class="icon ion-plus-round"></i> Add new
+            </router-link>
           </div>
           <div class="box side-menu">
             <div>
@@ -121,10 +123,14 @@
 
 
         <modal
-          v-if="$route.name === 'DashboardDetails'"
+          v-if="$route.name !== 'Dashboard'"
           @close="$router.push({ name: 'Dashboard' })"
         >
-          <router-view :entries="entries"></router-view>
+          <router-view
+            :entries="entries"
+            :map="map"
+            :types="types"
+          ></router-view>
         </modal>
       </div>
 
