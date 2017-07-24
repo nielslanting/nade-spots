@@ -96,9 +96,9 @@
 </style>
 
 <template>
-  <div class="details-container">
+  <div class="details-container" v-if="entry">
     <div class="details-header">
-      <h1>{{ entry.title || '' }}</h1>
+      <h1>{{ entry.name || '' }}</h1>
       <h2>By {{ entry.author || 'unknown' }}</h2>
     </div>
 
@@ -118,12 +118,12 @@
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="upvote">
-              <i class="icon ion-arrow-up-a"></i> {{ entry.votes.up || '0' }}
+              <i class="icon ion-arrow-up-a"></i> {{ entry.upvotes || '0' }}
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="downvote">
-              <i class="icon ion-arrow-down-a"></i> {{ entry.votes.down || '0' }}
+              <i class="icon ion-arrow-down-a"></i> {{ entry.downvotes || '0' }}
             </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg">
@@ -159,6 +159,7 @@
     components: { Player },
     computed: {
       entry () {
+        if (!this.entries) return null
         return this.entries.filter(x => x.id === this.$route.params.detailId)[0]
       }
     }

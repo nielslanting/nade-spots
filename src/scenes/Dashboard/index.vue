@@ -55,6 +55,12 @@
     border-radius: 3px;
   }
 
+  .loader-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
 
 <template>
@@ -74,15 +80,10 @@
           </div>
           <div class="box side-menu">
             <div>
-              <b>Search:</b>
-              <br />
-              <input type="text" />
-            </div>
-
-            <div>
               <b>Type:</b>
               <br />
               <select>
+                <option value="">Any</option>
                 <option value="">Grenade</option>
                 <option value="">Flash</option>
                 <option value="">Smoke</option>
@@ -91,24 +92,12 @@
             </div>
 
             <div>
-              <b>Rating:</b>
-              <br />
-              <select>
-                <option value="">*****</option>
-                <option value="">****</option>
-                <option value="">***</option>
-                <option value="">**</option>
-                <option value="">*</option>
-              </select>
-            </div>
-
-            <div>
               <b>Sorting:</b>
               <br />
               <select>
-                <option value="">Popular</option>
-                <option value="">Recent Popular</option>
+                <option value="">Rating</option>
                 <option value="">Newest</option>
+                <option value="">Oldest</option>
               </select>
             </div>
           </div>
@@ -117,9 +106,15 @@
         <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
             <nade-map
-              :entries="entries"
+              v-if="map.minimap"
+              :name="$route.params.map"
+              :minimap="map.minimap"
+              :entries="map.entries"
               @click="handleMapClick"
             ></nade-map>
+            <div class="loader-container" v-else>
+              <loader></loader>
+            </div>
           </div>
         </main>
 
@@ -137,84 +132,86 @@
 </template>
 
 <script>
+  import gql from 'graphql-tag'
   import Logo from '@/components/Logo'
   import Modal from '@/components/Modal'
+  import Loader from '@/components/Loader'
   import NadeMap from './components/NadeMap'
 
   export default {
     name: 'Dashboard',
-    data () {
-      return {
-        entries: [{
-          id: 1,
-          locations: [{
-            x: 124.80555725097656,
-            y: 199.1128463745117
-          }, {
-            x: 136.80555725097656,
-            y: 111.61284637451172
-          }],
-          color: 'red',
-          description: 'Line the right side of the vent up with the right side of the pole. Run forwards as soon as the pole disappears behind the vent, jump throw the grenade.',
-          video: {
-            id: 'YzqFUJGkjc4',
-            start: 38,
-            end: 44
-          },
-          title: 'Defensive mid window nade',
-          author: 'Animosity',
-          votes: {
-            up: 1337,
-            down: 666
-          }
-        }, {
-          id: 2,
-          locations: [{
-            x: 95,
-            y: 100
-          }, {
-            x: 65,
-            y: 160
-          }],
-          color: 'red',
-          description: 'Line the left side of the crosshair up with the left side of the pipe. Line the left side of the crosshair up with the right side of the lamp. Jump throw.',
-          video: {
-            id: 'YzqFUJGkjc4',
-            start: 28,
-            end: 37
-          },
-          title: 'Agressive B window nade',
-          author: 'Animosity',
-          votes: {
-            up: 1337,
-            down: 666
-          }
-        }, {
-          id: 3,
-          locations: [{
-            x: 110,
-            y: 158
-          }, {
-            x: 136.80555725097656,
-            y: 111.61284637451172
-          }],
-          color: 'red',
-          description: 'Place the crosshair in the center of the edges of the roof.',
-          video: {
-            id: 'YzqFUJGkjc4',
-            start: 45,
-            end: 50
-          },
-          title: 'Agressive mid window nade from connector',
-          author: 'Animosity',
-          votes: {
-            up: 1337,
-            down: 666
-          }
-        }]
-      }
-    },
-    components: { Logo, NadeMap, Modal },
+    // data () {
+    //   return {
+    //     entries: [{
+    //       id: 1,
+    //       locations: [{
+    //         x: 124.80555725097656,
+    //         y: 199.1128463745117
+    //       }, {
+    //         x: 136.80555725097656,
+    //         y: 111.61284637451172
+    //       }],
+    //       color: 'red',
+    //       description: 'Line the right side of the vent up with the right side of the pole. Run forwards as soon as the pole disappears behind the vent, jump throw the grenade.',
+    //       video: {
+    //         id: 'YzqFUJGkjc4',
+    //         start: 38,
+    //         end: 44
+    //       },
+    //       title: 'Defensive mid window nade',
+    //       author: 'Animosity',
+    //       votes: {
+    //         up: 1337,
+    //         down: 666
+    //       }
+    //     }, {
+    //       id: 2,
+    //       locations: [{
+    //         x: 95,
+    //         y: 100
+    //       }, {
+    //         x: 65,
+    //         y: 160
+    //       }],
+    //       color: 'red',
+    //       description: 'Line the left side of the crosshair up with the left side of the pipe. Line the left side of the crosshair up with the right side of the lamp. Jump throw.',
+    //       video: {
+    //         id: 'YzqFUJGkjc4',
+    //         start: 28,
+    //         end: 37
+    //       },
+    //       title: 'Agressive B window nade',
+    //       author: 'Animosity',
+    //       votes: {
+    //         up: 1337,
+    //         down: 666
+    //       }
+    //     }, {
+    //       id: 3,
+    //       locations: [{
+    //         x: 110,
+    //         y: 158
+    //       }, {
+    //         x: 136.80555725097656,
+    //         y: 111.61284637451172
+    //       }],
+    //       color: 'red',
+    //       description: 'Place the crosshair in the center of the edges of the roof.',
+    //       video: {
+    //         id: 'YzqFUJGkjc4',
+    //         start: 45,
+    //         end: 50
+    //       },
+    //       title: 'Agressive mid window nade from connector',
+    //       author: 'Animosity',
+    //       votes: {
+    //         up: 1337,
+    //         down: 666
+    //       }
+    //     }]
+    //   }
+    // },
+    components: { Logo, NadeMap, Modal, Loader },
     methods: {
       handleMapClick (id) {
         this.$router.push({
@@ -223,6 +220,48 @@
             detailId: id
           }
         })
+      }
+    },
+    apollo: {
+      map: {
+        query: gql`
+          query EntriesForMap($map: String!) {
+            map: Map(slug: $map) {
+              id,
+              minimap {
+                url,
+                size
+              },
+              entries {
+                id,
+                createdAt,
+                description,
+                downvotes,
+                upvotes,
+                locations {
+                  x,
+                  y
+                },
+                name,
+                type {
+                  id,
+                  color
+                },
+                usage,
+                video {
+                  id: videoId,
+                  start,
+                  end
+                }
+              }
+            }
+          }
+        `,
+        variables () {
+          return {
+            map: this.$route.params.map
+          }
+        }
       }
     }
   }

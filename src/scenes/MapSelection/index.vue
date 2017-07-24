@@ -80,7 +80,7 @@
           Map Selection
         </h2>
         <router-link :to="{name: 'Home'}" class="back-button">
-          &#x25C2; Choose another game
+          <i class="icon ion-android-arrow-back"></i> Choose another game
         </router-link>
       </div>
     </div>

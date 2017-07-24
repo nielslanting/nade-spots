@@ -28,16 +28,8 @@
       :mapTypeControl="false"
       @idle="handleMapLoaded"
       @maptypeid_changed="handleMapTypeIdChange"
-    >
-      <gmap-polyline
-        :path="coords"
-        :geodesic="false"
-        :strokeOpacity="1.0"
-        strokeColor="red"
-        strokeWeight="3"
-      ></gmap-polyline>
-    </gmap-map>
-
+      @click="handleMapClick"
+    ></gmap-map>
   </div>
 </template>
 
@@ -107,19 +99,19 @@
 
   export default {
     name: 'Map',
-    props: ['entries'],
+    props: ['name', 'entries', 'minimap'],
     data () {
       return {
         mapTypeId: 'Terrain',
         mapLoaded: false,
-        sourceImg: new Image(612, 612),
+        sourceImg: null 
       }
     },
     mounted () {
       this.$refs.map.resizePreserveCenter()
+      this.sourceImg = new Image(this.minimap.size, this.minimap.size);
       this.sourceImg.setAttribute('crossOrigin', 'anonymous');
-      // this.sourceImg.src = 'http://i.imgur.com/9oFUzzo.png'; //1024
-      this.sourceImg.src = 'http://i.imgur.com/ZpWwDlT.png'; // 612
+      this.sourceImg.src = this.minimap.url;
 
       window.addEventListener('resize', this.restoreCenter);
     },
@@ -169,7 +161,7 @@
           var generatedPath = new google.maps.Polyline({
             path: coords,
             geodesic: false,
-            strokeColor: entry.color,
+            strokeColor: entry.type.color,
             strokeOpacity: 1.0,
             strokeWeight: 3,
           });
@@ -190,7 +182,7 @@
       },
 
       handleMapTypeIdChange(mapType) {
-        if (mapType === 'brooklyn') {
+        if (mapType === this.name) {
           this.drawEntries();
         }
       },
@@ -199,7 +191,7 @@
         this.$refs.map.resizePreserveCenter()
         this.mapLoaded = true;
 
-        const name = 'brooklyn'
+        const name = this.name
 
         // Load the custom map
         const sourceImg = this.sourceImg;
@@ -212,12 +204,16 @@
           maxZoom: 8,
           minZoom: 1,
           radius: 1,
-          name: 'Brooklyn'
+          name: name
         });
 
         this.$refs.map.$mapObject.mapTypes.set(name, mapType);
         this.$refs.map.$mapObject.setMapTypeId(name);
       },
+
+      handleMapClick (e) {
+        console.log('handleMapClick', e)
+      }
     }
   }
 </script>
