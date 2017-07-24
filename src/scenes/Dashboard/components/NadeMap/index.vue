@@ -118,7 +118,8 @@
       return {
         mapTypeId: 'Terrain',
         mapLoaded: false,
-        sourceImg: null 
+        sourceImg: null,
+        drawnEntries: []
       }
     },
     mounted () {
@@ -131,6 +132,15 @@
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.restoreCenter);
+    },
+    watch: {
+      entries (newEntries, oldEntries) {
+        // Don't do this action when it's the first time
+        if (oldEntries) {
+          this.drawnEntries.forEach(entry => entry.setMap(null));
+          this.drawEntries(newEntries);
+        }
+      }
     },
     computed: {
       drawEntriesOnce () {
@@ -178,8 +188,13 @@
             strokeWeight: 3,
           });
 
+          // Paint the path on the map
           generatedPath.setMap(this.$refs.map.$mapObject);
+
+          // Animate the symbol
           animateCircle(generatedPath);
+
+          this.drawnEntries.push(generatedPath);
 
           google.maps.event.addListener(generatedPath, 'click', (e) => {
             this.$emit('click', entry.id, e);

@@ -82,12 +82,13 @@
             <div>
               <b>Type:</b>
               <br />
-              <select>
+              <select @change="handleTypeChange">
                 <option value="">Any</option>
-                <option value="">Grenade</option>
-                <option value="">Flash</option>
-                <option value="">Smoke</option>
-                <option value="">Grenade Launcher</option>
+                <option 
+                  v-for="type in types" :value="type.id"
+                >
+                  {{ type.name }}
+                </option>
               </select>
             </div>
 
@@ -109,7 +110,7 @@
               v-if="map && map.minimap"
               :name="$route.params.map"
               :minimap="map.minimap"
-              :entries="map.entries"
+              :entries="entries"
               @click="handleMapClick"
             ></nade-map>
             <div class="loader-container" v-else>
@@ -140,78 +141,12 @@
 
   export default {
     name: 'Dashboard',
-    // data () {
-    //   return {
-    //     entries: [{
-    //       id: 1,
-    //       locations: [{
-    //         x: 124.80555725097656,
-    //         y: 199.1128463745117
-    //       }, {
-    //         x: 136.80555725097656,
-    //         y: 111.61284637451172
-    //       }],
-    //       color: 'red',
-    //       description: 'Line the right side of the vent up with the right side of the pole. Run forwards as soon as the pole disappears behind the vent, jump throw the grenade.',
-    //       video: {
-    //         id: 'YzqFUJGkjc4',
-    //         start: 38,
-    //         end: 44
-    //       },
-    //       title: 'Defensive mid window nade',
-    //       author: 'Animosity',
-    //       votes: {
-    //         up: 1337,
-    //         down: 666
-    //       }
-    //     }, {
-    //       id: 2,
-    //       locations: [{
-    //         x: 95,
-    //         y: 100
-    //       }, {
-    //         x: 65,
-    //         y: 160
-    //       }],
-    //       color: 'red',
-    //       description: 'Line the left side of the crosshair up with the left side of the pipe. Line the left side of the crosshair up with the right side of the lamp. Jump throw.',
-    //       video: {
-    //         id: 'YzqFUJGkjc4',
-    //         start: 28,
-    //         end: 37
-    //       },
-    //       title: 'Agressive B window nade',
-    //       author: 'Animosity',
-    //       votes: {
-    //         up: 1337,
-    //         down: 666
-    //       }
-    //     }, {
-    //       id: 3,
-    //       locations: [{
-    //         x: 110,
-    //         y: 158
-    //       }, {
-    //         x: 136.80555725097656,
-    //         y: 111.61284637451172
-    //       }],
-    //       color: 'red',
-    //       description: 'Place the crosshair in the center of the edges of the roof.',
-    //       video: {
-    //         id: 'YzqFUJGkjc4',
-    //         start: 45,
-    //         end: 50
-    //       },
-    //       title: 'Agressive mid window nade from connector',
-    //       author: 'Animosity',
-    //       votes: {
-    //         up: 1337,
-    //         down: 666
-    //       }
-    //     }]
-    //   }
-    // },
     components: { Logo, NadeMap, Modal, Loader },
+    data () {
+      return {
+        selectedType: null
+      }
+    },
     methods: {
       handleMapClick (id) {
         this.$router.push({
@@ -220,12 +155,28 @@
             detailId: id
           }
         })
+      },
+      handleTypeChange (e) {
+        console.log('handleTypeChange', e)
+        this.selectedType = e.target.value
       }
     },
     computed: {
       entries () {
         if (!this.map || !this.map.entries) return []
+
+        // Filter entries on type
+        if (this.selectedType) {
+          return this.map.entries.filter(x => x.type.id === this.selectedType)
+        }
+
         return this.map.entries
+      },
+      types () {
+        if (!this.map || !this.map.entries) return []
+        return this.map.entries
+        .map(x => x.type)
+        .filter((v, i, s) => s.indexOf(v) === i)
       }
     },
     apollo: {
@@ -251,7 +202,8 @@
                 name,
                 type {
                   id,
-                  color
+                  name
+                  color,
                 },
                 usage,
                 video {
