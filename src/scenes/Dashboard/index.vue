@@ -106,7 +106,7 @@
         <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
             <nade-map
-              v-if="map.minimap"
+              v-if="map && map.minimap"
               :name="$route.params.map"
               :minimap="map.minimap"
               :entries="map.entries"
@@ -222,6 +222,12 @@
         })
       }
     },
+    computed: {
+      entries () {
+        if (!this.map || !this.map.entries) return []
+        return this.map.entries
+      }
+    },
     apollo: {
       map: {
         query: gql`
@@ -249,7 +255,7 @@
                 },
                 usage,
                 video {
-                  id: videoId,
+                  videoId,
                   start,
                   end
                 }

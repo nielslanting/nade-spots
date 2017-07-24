@@ -138,8 +138,8 @@
       <div class="details-content col-xs-12 col-sm-12 col-md-12 col-lg-9 last-lg">
         <div class="content">
           <player
-            v-if="entry && entry.video && entry.video.id"
-            :id="entry.video.id"
+            v-if="entry && entry.video && entry.video.videoId"
+            :id="entry.video.videoId"
             :start="entry.video.start"
             :end="entry.video.end"
           ></player>

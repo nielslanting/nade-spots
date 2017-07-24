@@ -36,6 +36,7 @@
 <script>
   /* eslint-disable */
 
+  import { once } from 'lodash';
   import generateTile from './generateTile.js';
 
   /**
@@ -66,6 +67,19 @@
     }
 
     return result;
+  }
+
+  // Use the DOM setInterval() function to change the offset of the symbol
+  // at fixed intervals.
+  function animateCircle(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 20);
   }
 
   /**
@@ -119,26 +133,9 @@
       window.removeEventListener('resize', this.restoreCenter);
     },
     computed: {
-      coords() {
-        if (!this.$refs.map || !this.$refs.map.$mapObject) return [];
-
-        const projection = this.$refs.map.$mapObject.getProjection();
-
-        var windowPath = [{
-          x: 124.80555725097656,
-          y: 199.1128463745117
-        }, {
-          x: 136.80555725097656,
-          y: 111.61284637451172
-        }];
-
-        var windowCoords = generatePolyPath(windowPath)
-        .map((coord) => {
-          return projection.fromPointToLatLng(new google.maps.Point(coord.x, coord.y));
-        });
-
-        return windowCoords;
-      },
+      drawEntriesOnce () {
+        return once(this.drawEntries);
+      }
     },
     methods: {
       setCenterPixel(x, y) {
@@ -150,9 +147,20 @@
       },
 
       drawEntries() {
+        console.log('drawEntries');
         const projection = this.$refs.map.$mapObject.getProjection();
 
         this.entries.forEach((entry) => {
+
+          var lineSymbol = {
+            geodesic: false,
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 2,
+            strokeColor: entry.type.color,
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+          };
+
           var coords = generatePolyPath(entry.locations)
           .map((coord) => {
             return projection.fromPointToLatLng(new google.maps.Point(coord.x, coord.y));
@@ -160,6 +168,10 @@
 
           var generatedPath = new google.maps.Polyline({
             path: coords,
+            icons: [{
+              icon: lineSymbol,
+              offset: '100%'
+            }],
             geodesic: false,
             strokeColor: entry.type.color,
             strokeOpacity: 1.0,
@@ -167,6 +179,7 @@
           });
 
           generatedPath.setMap(this.$refs.map.$mapObject);
+          animateCircle(generatedPath);
 
           google.maps.event.addListener(generatedPath, 'click', (e) => {
             this.$emit('click', entry.id, e);
@@ -183,7 +196,7 @@
 
       handleMapTypeIdChange(mapType) {
         if (mapType === this.name) {
-          this.drawEntries();
+          this.drawEntriesOnce();
         }
       },
 
