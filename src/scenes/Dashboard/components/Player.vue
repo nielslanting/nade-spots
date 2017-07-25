@@ -21,6 +21,7 @@
 <template>
   <div class="video">
     <youtube
+      ref='youtube'
       class="item"
       player-width="100%"
       player-height="100%"
@@ -28,8 +29,8 @@
       :mute="true"
       :player-vars="{
         autoplay: 1,
-        start: start,
-        end: end + 2,
+        start: start ? start : undefined,
+        end: end ? (end + 2) : undefined,
         modestbranding: 1,
       }"
       @playing="handlePlaying"
@@ -42,6 +43,14 @@
   export default {
     name: 'Player',
     props: ['id', 'start', 'end'],
+    watch: {
+      start () {
+
+      },
+      end () {
+
+      }
+    },
     computed: {
       videoLength () {
         return this.end - this.start
@@ -55,6 +64,9 @@
     methods: {
       handlePlaying (player) {
         clearTimeout(this.resetVideoTimeout)
+
+        if (!this.start || !this.end) return
+
         this.resetVideoTimeout = setTimeout(() => {
           player.seekTo(this.start, true)
         }, this.videoLength * 1000)

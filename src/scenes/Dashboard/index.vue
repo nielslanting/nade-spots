@@ -109,11 +109,11 @@
         <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
             <nade-map
-              v-if="map && map.minimap"
+              v-if="map && minimap"
               :name="$route.params.map"
-              :minimap="map.minimap"
+              :minimap="minimap"
               :entries="entries"
-              @click="handleMapClick"
+              @open="handleMapOpen"
             ></nade-map>
             <div class="loader-container" v-else>
               <loader></loader>
@@ -130,6 +130,7 @@
             :entries="entries"
             :map="map"
             :types="types"
+            :minimap="minimap"
           ></router-view>
         </modal>
       </div>
@@ -154,7 +155,7 @@
       }
     },
     methods: {
-      handleMapClick (id) {
+      handleMapOpen (id) {
         this.$router.push({
           name: 'DashboardDetails',
           params: {
@@ -183,6 +184,14 @@
         return this.map.entries
         .map(x => x.type)
         .filter((v, i, s) => s.indexOf(v) === i)
+      },
+      minimap () {
+        if (!this.map) return null
+
+        return {
+          url: this.map.minimap,
+          size: this.map.minimapSize
+        }
       }
     },
     apollo: {
@@ -191,20 +200,15 @@
           query EntriesForMap($map: String!) {
             map: Map(slug: $map) {
               id,
-              minimap {
-                url,
-                size
-              },
+              minimap,
+              minimapSize,
               entries {
                 id,
                 createdAt,
                 description,
                 downvotes,
                 upvotes,
-                locations {
-                  x,
-                  y
-                },
+                locations,
                 name,
                 type {
                   id,

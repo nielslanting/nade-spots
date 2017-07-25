@@ -29,6 +29,7 @@
       @idle="handleMapLoaded"
       @maptypeid_changed="handleMapTypeIdChange"
       @click="handleMapClick"
+      @rightclick="$emit('rightclick')"
     ></gmap-map>
   </div>
 </template>
@@ -197,7 +198,7 @@
           this.drawnEntries.push(generatedPath);
 
           google.maps.event.addListener(generatedPath, 'click', (e) => {
-            this.$emit('click', entry.id, e);
+            this.$emit('open', entry.id, e);
           });
         });
       },
@@ -241,6 +242,7 @@
 
       handleMapClick (e) {
         console.log('handleMapClick', e)
+        this.$emit('click', e);
       }
     }
   }
