@@ -151,7 +151,9 @@
     components: { Logo, NadeMap, Modal, Loader },
     data () {
       return {
-        selectedType: null
+        selectedType: null,
+        map: null,
+        types: []
       }
     },
     methods: {
@@ -179,12 +181,6 @@
 
         return this.map.entries
       },
-      types () {
-        if (!this.map || !this.map.entries) return []
-        return this.map.entries
-        .map(x => x.type)
-        .filter((v, i, s) => s.indexOf(v) === i)
-      },
       minimap () {
         if (!this.map) return null
 
@@ -195,6 +191,27 @@
       }
     },
     apollo: {
+      types: {
+        query: gql`
+          query GameMaps($game: String) {
+            game: Game(slug: $game) {
+              types {
+                id,
+                color,
+                name
+              }
+            }
+          }
+        `,
+        variables () {
+          return {
+            game: this.$route.params.game
+          }
+        },
+        update (data) {
+          return data.game.types
+        }
+      },
       map: {
         query: gql`
           query EntriesForMap($map: String!) {
