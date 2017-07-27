@@ -22,6 +22,21 @@ const networkInterface = createNetworkInterface({
   transportBatching: true
 })
 
+// Auth0 middleware
+networkInterface.use([{
+  applyMiddleware (req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {}
+    }
+
+    // get the authentication token from local storage if it exists
+    if (localStorage.getItem('auth0IdToken')) {
+      req.options.headers.authorization = `Bearer ${localStorage.getItem('auth0IdToken')}`
+    }
+    next()
+  }
+}])
+
 const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj59tz3nfrlhy0105885qy550', {
   reconnect: true
 })

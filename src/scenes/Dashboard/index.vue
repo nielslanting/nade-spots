@@ -3,6 +3,10 @@
     text-align: left;
   }
 
+  .logo-container .row {
+    margin: 0;
+  }
+
   main,
   aside {
     padding: 0;
@@ -61,12 +65,24 @@
     align-items: center;
     justify-content: center;
   }
+
+  .user-bar-container {
+    padding: 5px;
+  }
 </style>
 
 <template>
   <div>
     <div class="logo-container">
-      <logo :hideImage="true"></logo>
+      <div class="row middle-xs">
+        <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
+          <logo :hideImage="true"></logo>
+        </div>
+        <div class="col-xs-0 col-sm-3 col-md-1 col-lg-1"></div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 end-xs user-bar-container">
+          <user-bar :user="user"></user-bar>
+        </div>
+      </div>
 
       <div class="row center-xs">
         <aside class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
@@ -145,10 +161,12 @@
   import Modal from '@/components/Modal'
   import Loader from '@/components/Loader'
   import NadeMap from './components/NadeMap'
+  import UserBar from './components/UserBar'
 
   export default {
     name: 'Dashboard',
-    components: { Logo, NadeMap, Modal, Loader },
+    props: ['user'],
+    components: { Logo, NadeMap, Modal, Loader, UserBar },
     data () {
       return {
         selectedType: null,
@@ -237,6 +255,9 @@
                   videoId,
                   start,
                   end
+                },
+                user {
+                  name
                 }
               }
             }

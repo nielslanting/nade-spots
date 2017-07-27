@@ -99,7 +99,7 @@
   <div class="details-container" v-if="entry">
     <div class="details-header">
       <h1>{{ entry.name || '' }}</h1>
-      <h2>By {{ entry.author || 'unknown' }}</h2>
+      <h2>By {{ entry.user && entry.user.name ?  entry.user.name : 'unknown' }}</h2>
     </div>
 
     <div class="details row center-xs">

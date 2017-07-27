@@ -70,7 +70,9 @@
 <template>
   <div id="app">
     <main>
-      <router-view></router-view>
+      <router-view
+        :user="user"
+      ></router-view>
     </main>
     <footer>
       Nadespots - Experiment created by Niels 'Animosity' Lanting - All images belong to their respective owners - {{ this.currentYear }}
@@ -79,11 +81,32 @@
 </template>
 
 <script>
+  import gql from 'graphql-tag'
+
   export default {
     name: 'app',
+    data () {
+      return {
+        user: null
+      }
+    },
     computed: {
       currentYear () {
         return new Date().getFullYear()
+      }
+    },
+    apollo: {
+      user: {
+        query: gql`
+          query {
+            user {
+              id,
+              name,
+              picture
+            }
+          }
+        `,
+        fetchPolicy: 'network-only'
       }
     }
   }
