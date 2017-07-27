@@ -146,7 +146,7 @@
                 // Login
                 console.log('everything gucci')
               } else {
-                const name = profile.given_name || profile.nickname || profile.name || profile.email
+                const name = profile.display_name || profile.given_name || profile.nickname || profile.name || profile.email
                 const picture = profile.picture
                 this.createUser(authResult.idToken, profile.email, name, picture)
               }
