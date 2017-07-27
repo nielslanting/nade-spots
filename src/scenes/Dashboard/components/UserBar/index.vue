@@ -173,17 +173,16 @@
         window.location.reload()
       },
       createUser (idToken, email, name, picture) {
-        const createUser = gql`
-          mutation ($idToken: String!, $name: String!, $email: String!, $picture: String!){
-            createUser(authProvider: {auth0: {idToken: $idToken}}, name: $name, email: $email, picture: $picture) {
-              id,
-              name,
-              picture
-            }
-          }
-        `
         return this.$apollo.mutate({
-          mutation: createUser,
+          mutation: gql`
+            mutation ($idToken: String!, $name: String!, $email: String!, $picture: String!){
+              createUser(authProvider: {auth0: {idToken: $idToken}}, name: $name, email: $email, picture: $picture) {
+                id,
+                name,
+                picture
+              }
+            }
+          `,
           variables: {
             idToken: idToken,
             name: name,
