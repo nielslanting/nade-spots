@@ -139,21 +139,17 @@
             // Set the token and user profile in local storage
             localStorage.setItem('profile', JSON.stringify(profile))
 
-            console.log({
-              idToken: authResult.idToken,
-              name: profile.nickname || profile.name || profile.email,
-              email: profile.email
-            })
-
-            const name = profile.given_name || profile.nickname || profile.name || profile.email
-            const picture = profile.picture
-
-            console.log(name, picture)
-            console.log(this.user)
-
             this.$apollo.query(this.$apollo.queries.user.options)
-            .then((user) => {
-              console.log('Got user', user)
+            .then((data) => {
+              console.log('Got user', data)
+              if (this.user) {
+                // Login
+                console.log('everything gucci')
+              } else {
+                const name = profile.given_name || profile.nickname || profile.name || profile.email
+                const picture = profile.picture
+                this.createUser(authResult.idToken, profile.email, name, picture)
+              }
             })
             .catch((error) => {
               console.log('Didnt gfet user', error)
@@ -180,7 +176,9 @@
         const createUser = gql`
           mutation ($idToken: String!, $name: String!, $email: String!, $picture: String!){
             createUser(authProvider: {auth0: {idToken: $idToken}}, name: $name, email: $email, picture: $picture) {
-              id
+              id,
+              name,
+              picture
             }
           }
         `
@@ -192,6 +190,10 @@
             email: email,
             picture: picture
           }
+        })
+        .then((result) => {
+          console.log('createUser result: ', result)
+          this.user = result.data.createUser
         })
       }
     },
