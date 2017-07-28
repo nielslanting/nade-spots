@@ -4,7 +4,7 @@ import 'isomorphic-fetch'
 import 'flexboxgrid'
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client'
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
+// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 import VueApollo from 'vue-apollo'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
@@ -37,17 +37,18 @@ networkInterface.use([{
   }
 }])
 
-const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj59tz3nfrlhy0105885qy550', {
-  reconnect: true
-})
+// const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj59tz3nfrlhy0105885qy550', {
+//   reconnect: true
+// })
 
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-  networkInterface,
-  wsClient
-)
+// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+//   networkInterface,
+//   wsClient
+// )
 
 const apolloClient = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions,
+  // networkInterface: networkInterfaceWithSubscriptions,
+  networkInterface: networkInterface,
   ssrForceFetchDelay: 100,
   connectToDevTools: true
 })
