@@ -106,7 +106,7 @@
       <!-- Side menu -->
       <div class="details-menu col-xs-12 col-sm-12 col-md-12 col-lg-3 last-xs last-sm last-md">
         <div class="row center-xs">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<!--           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="button">
               <i class="icon ion-social-youtube"></i> Video
             </div>
@@ -116,7 +116,7 @@
               <i class="icon ion-image"></i> Images
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+ -->          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="upvote">
               <i class="icon ion-arrow-up-a"></i> {{ entry.upvotes || '0' }}
             </div>

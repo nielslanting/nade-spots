@@ -14,7 +14,8 @@
 
   .modal {
     position: relative;
-    background-color: #34495e;
+    /*background-color: #34495e;*/
+    background-color: #2c3e50;
     margin: 20px;
     padding: 15px;
     height: calc(100% - 40px);

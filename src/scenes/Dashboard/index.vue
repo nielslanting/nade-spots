@@ -80,7 +80,10 @@
         </div>
         <div class="col-xs-0 col-sm-3 col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 end-xs user-bar-container">
-          <user-bar :user="user"></user-bar>
+          <user-bar
+            ref="userBar"
+            :user="user"
+          ></user-bar>
         </div>
       </div>
 
@@ -92,9 +95,21 @@
             </router-link>
           </div>
           <div class="box add-button">
-            <router-link :to="{name: 'DashboardAdd'}">
-              <i class="icon ion-plus-round"></i> Add new
+            <router-link
+              v-if="user"
+              :to="{ name: 'DashboardAddDetails' }"
+            >
+              <i class="icon ion-plus-round"></i>
+              Add new
             </router-link>
+            <a 
+              v-else
+              href=""
+              @click.prevent.stop="login"
+            >
+              <i class="icon ion-plus-round"></i>
+              Login to add new
+            </a>
           </div>
           <div class="box side-menu">
             <div>
@@ -147,6 +162,7 @@
             :map="map"
             :types="types"
             :minimap="minimap"
+            :user="user"
           ></router-view>
         </modal>
       </div>
@@ -186,6 +202,9 @@
       handleTypeChange (e) {
         console.log('handleTypeChange', e)
         this.selectedType = e.target.value
+      },
+      login () {
+        this.$refs.userBar.login()
       }
     },
     computed: {

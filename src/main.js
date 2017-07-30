@@ -4,10 +4,11 @@ import 'isomorphic-fetch'
 import 'flexboxgrid'
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client'
-// import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 import VueApollo from 'vue-apollo'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
+
+import Vuelidate from 'vuelidate'
 
 import Youtube from 'vue-youtube-embed'
 
@@ -37,15 +38,6 @@ networkInterface.use([{
   }
 }])
 
-// const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj59tz3nfrlhy0105885qy550', {
-//   reconnect: true
-// })
-
-// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-//   networkInterface,
-//   wsClient
-// )
-
 const apolloClient = new ApolloClient({
   // networkInterface: networkInterfaceWithSubscriptions,
   networkInterface: networkInterface,
@@ -71,6 +63,9 @@ Vue.use(VueGoogleMaps, {
 
 // Setting up Youtube player
 Vue.use(Youtube)
+
+// Setting up form validation
+Vue.use(Vuelidate)
 
 /* eslint-disable no-new */
 new Vue({

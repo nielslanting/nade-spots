@@ -23,7 +23,11 @@
       :class="{ map: true, loaded: mapLoaded }"
       :center="{ lat: 0, lng: 0 }"
       :streetViewControl="false"
-      :options="{ streetViewControl: false, mapTypeControl: false }"
+      :options="{
+        streetViewControl: false,
+        mapTypeControl: false,
+        draggable: this.draggable != null ? this.draggable : true
+      }"
       :zoom="1"
       :mapTypeControl="false"
       @idle="handleMapLoaded"
@@ -114,7 +118,7 @@
 
   export default {
     name: 'Map',
-    props: ['name', 'entries', 'minimap'],
+    props: ['name', 'entries', 'minimap', 'draggable'],
     data () {
       return {
         mapTypeId: 'Terrain',
@@ -231,7 +235,7 @@
           },
           tileSize: new google.maps.Size(256, 256),
           maxZoom: 8,
-          minZoom: 1,
+          minZoom: 0,
           radius: 1,
           name: name
         });

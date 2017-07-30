@@ -32,6 +32,7 @@
         start: start ? start : undefined,
         end: end ? (end + 2) : undefined,
         modestbranding: 1,
+        iv_load_policy: 3
       }"
       @playing="handlePlaying"
     ></youtube>

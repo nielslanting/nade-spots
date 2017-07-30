@@ -8,6 +8,8 @@ import MapSelection from '@/scenes/MapSelection'
 import Dashboard from '@/scenes/Dashboard'
 import DashboardDetails from '@/scenes/Dashboard/Details'
 import DashboardAdd from '@/scenes/Dashboard/Add'
+import DashboardAddDetails from '@/scenes/Dashboard/Add/Details'
+import DashboardAddContent from '@/scenes/Dashboard/Add/Content'
 
 Vue.use(Router)
 
@@ -37,7 +39,19 @@ export default new Router({
       children: [{
         path: '/:game/:map/add',
         name: 'DashboardAdd',
-        component: DashboardAdd
+        component: DashboardAdd,
+        children: [{
+          path: '/',
+          component: DashboardAddDetails
+        }, {
+          path: '/:game/:map/add/details',
+          name: 'DashboardAddDetails',
+          component: DashboardAddDetails
+        }, {
+          path: '/:game/:map/add/content',
+          name: 'DashboardAddContent',
+          component: DashboardAddContent
+        }]
       }, {
         path: '/:game/:map/:detailId',
         name: 'DashboardDetails',
