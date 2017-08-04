@@ -21,6 +21,7 @@
 <template>
   <div class="video">
     <youtube
+      v-if="!refreshPlayer"
       ref='youtube'
       class="item"
       player-width="100%"
@@ -35,6 +36,7 @@
         iv_load_policy: 3
       }"
       @playing="handlePlaying"
+      @ready="$emit('ready')"
     ></youtube>
   </div>
 </template>
@@ -44,13 +46,14 @@
   export default {
     name: 'Player',
     props: ['id', 'start', 'end'],
-    watch: {
-      start () {
-
-      },
-      end () {
-
+    data () {
+      return {
+        refreshPlayer: false
       }
+    },
+    watch: {
+      start () { this.refresh() },
+      end () { this.refresh() }
     },
     computed: {
       videoLength () {
@@ -63,7 +66,14 @@
       }
     },
     methods: {
+      refresh () {
+        this.refreshPlayer = true
+        this.$nextTick(() => {
+          this.refreshPlayer = false
+        })
+      },
       handlePlaying (player) {
+        this.$emit('playing', player)
         clearTimeout(this.resetVideoTimeout)
 
         if (!this.start || !this.end) return
@@ -71,6 +81,12 @@
         this.resetVideoTimeout = setTimeout(() => {
           player.seekTo(this.start, true)
         }, this.videoLength * 1000)
+      },
+      getCurrentTime () {
+        return this.$refs.youtube.player.getCurrentTime()
+      },
+      getDuration () {
+        return this.$refs.youtube.player.getDuration()
       }
     }
   }

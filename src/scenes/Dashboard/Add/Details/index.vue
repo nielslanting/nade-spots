@@ -176,9 +176,18 @@
         </a>
 
         <router-link
-          class="next-button"
-          :to="{ name: 'DashboardAddContent' }"
           v-else
+          class="next-button"
+          :to="{
+            name: 'DashboardAddContent',
+            params: {
+              name: this.name,
+              description: this.description,
+              locations: this.locations,
+              type: this.type || this.types[0].id,
+              usage: this.usage || this.usages[0]
+            }
+          }"
         >
           <i class="icon ion-checkmark"></i>
           Next step      
@@ -195,29 +204,32 @@
 
   export default {
     name: 'AddDetails',
-    props: ['types', 'usages', 'minimap', 'description', 'name'],
+    props: ['types', 'usages', 'minimap'],
     components: { NadeMap },
     data () {
       return {
+        name: '',
+        description: '',
         type: null,
+        usage: null,
         locations: []
       }
     },
     computed: {
       entry () {
         return {
-          type: this.type || this.types[0],
+          type: this.types.filter(x => x.id === this.type)[0] || this.types[0],
           locations: this.locations
         }
       }
     },
     methods: {
       handleUsageChange (e) {
-
+        this.usage = this.usages[e.target.selectedIndex].id
       },
       handleTypeChange (e) {
         console.log('handleTypeChange', e, e.target.selectedIndex)
-        this.type = this.types[e.target.selectedIndex]
+        this.type = this.types[e.target.selectedIndex].id
       },
       handleMapClick (e) {
         const location = {

@@ -11,6 +11,7 @@
       :types="types"
       :usages="usages"
       :minimap="minimap"
+      :map="map"
     ></router-view> 
   </div>
 </template>
@@ -18,7 +19,7 @@
 <script>
   export default {
     name: 'Add',
-    props: ['user', 'types', 'minimap'],
+    props: ['user', 'types', 'minimap', 'map'],
     data () {
       return {
         usages: ['GENERAL', 'OFFENSIVE', 'DEFENSIVE']
