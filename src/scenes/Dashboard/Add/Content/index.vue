@@ -242,13 +242,14 @@
   import { debounce } from 'lodash'
   import VueSlider from 'vue-slider-component'
   import Loader from '@/components/Loader'
+  import ENTRIES_FOR_MAP from '@/queries/ENTRIES_FOR_MAP'
   import Player from '../../components/Player'
 
   const API_KEY = 'AIzaSyC-XJtt6icSgqZDMdZzdt3648vOa_GT9jE'
 
   export default {
     name: 'Content',
-    props: ['map'],
+    props: ['map', 'user'],
     components: { Loader, Player, VueSlider },
     data () {
       return {
@@ -336,18 +337,20 @@
         this.recordingStart = null
       },
       addEntry () {
+        const mapId = this.$route.params.map
         this.$apollo.mutate({
           mutation: gql`
             mutation addEntry(
               $description: String!,
               $name: String!,
-              $usage: ENTRY_USAGE!,
+              $usage: USAGE!,
               $videoId: String!,
               $videoStart: Int!,
               $videoEnd: Int!,
               $map: ID!,
               $type: ID!,
-              $locations: Json!
+              $locations: Json!,
+              $userId: ID!,
             ) {
               createEntry(
                 description: $description,
@@ -361,14 +364,28 @@
                   start: $videoStart,
                   end: $videoEnd
                 },
+                userId: $userId                
               ) {
                 id,
-                name,
+                createdAt,
                 description,
-                usage
-                video {
+                downvotes,
+                upvotes,
+                locations,
+                name,
+                type {
                   id,
-                  videoId
+                  name
+                  color,
+                },
+                usage,
+                video {
+                  videoId,
+                  start,
+                  end
+                },
+                user {
+                  name
                 }
               }
             }
@@ -377,11 +394,25 @@
             videoId: this.video,
             videoStart: this.start ? parseInt(this.start, 10) : undefined,
             videoEnd: this.end ? parseInt(this.end, 10) : undefined,
-            map: this.map.id
-          })
+            map: this.map.id,
+            userId: this.user.id
+          }),
+          update (store, { data: { createEntry } }) {
+            console.log('update', store, createEntry, this)
+            const data = store.readQuery({
+              query: ENTRIES_FOR_MAP,
+              variables: {
+                map: mapId
+              }
+            })
+            console.log('data', data)
+            data.map.entries.push(createEntry)
+            store.writeQuery({ query: ENTRIES_FOR_MAP, data })
+          }
         })
         .then((data) => {
           console.log('addEntry success', data)
+          this.$router.push({ name: 'Dashboard' })
         })
         .catch((error) => {
           console.error('addEntry error', error)

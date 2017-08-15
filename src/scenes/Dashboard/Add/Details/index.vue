@@ -232,9 +232,11 @@
         this.type = this.types[e.target.selectedIndex].id
       },
       handleMapClick (e) {
+        console.log('handleMapClick', e)
+
         const location = {
-          x: e.da.x,
-          y: e.da.y
+          x: e.ea.x,
+          y: e.ea.y
         }
 
         console.log('handleMapClick', location)

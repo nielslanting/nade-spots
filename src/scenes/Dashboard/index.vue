@@ -176,6 +176,7 @@
   import Logo from '@/components/Logo'
   import Modal from '@/components/Modal'
   import Loader from '@/components/Loader'
+  import ENTRIES_FOR_MAP from '@/queries/ENTRIES_FOR_MAP'
   import NadeMap from './components/NadeMap'
   import UserBar from './components/UserBar'
 
@@ -250,38 +251,7 @@
         }
       },
       map: {
-        query: gql`
-          query EntriesForMap($map: String!) {
-            map: Map(slug: $map) {
-              id,
-              minimap,
-              minimapSize,
-              entries {
-                id,
-                createdAt,
-                description,
-                downvotes,
-                upvotes,
-                locations,
-                name,
-                type {
-                  id,
-                  name
-                  color,
-                },
-                usage,
-                video {
-                  videoId,
-                  start,
-                  end
-                },
-                user {
-                  name
-                }
-              }
-            }
-          }
-        `,
+        query: ENTRIES_FOR_MAP,
         variables () {
           return {
             map: this.$route.params.map
