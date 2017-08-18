@@ -6,8 +6,12 @@ export default gql`
       id,
       name,
       picture,
-      upvoted,
-      downvoted
+      upvoted {
+        id
+      },
+      downvoted {
+        id
+      }
     }
   }
 `
