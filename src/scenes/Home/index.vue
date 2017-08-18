@@ -30,14 +30,17 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+
   .box.game > a {
-    display: block;
-    height: 100%;
+    height: 300px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     color: #ecf0f1;
     font-size: 0.9em;
     width: 100%;
-    line-height: 300px;
     max-height: 300px;
     opacity: 0;
   }

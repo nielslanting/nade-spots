@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
+  import QUERY_USER from '@/queries/QUERY_USER'
 
   export default {
     name: 'app',
@@ -97,15 +97,7 @@
     },
     apollo: {
       user: {
-        query: gql`
-          query {
-            user {
-              id,
-              name,
-              picture
-            }
-          }
-        `,
+        query: QUERY_USER,
         fetchPolicy: 'network-only'
       }
     }

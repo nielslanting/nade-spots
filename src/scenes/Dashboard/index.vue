@@ -46,7 +46,7 @@
     margin-bottom: 20px;
     padding: 10px;
     padding-left: 0;
-    border-bottom: 1px solid #7f8c8d;
+    /*border-bottom: 1px solid #7f8c8d;*/
   }
 
   input,
@@ -69,6 +69,35 @@
   .user-bar-container {
     padding: 5px;
   }
+
+  .legend-box {
+    padding: 0;
+    text-align: center;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+
+  .legend-box > .box {
+    text-align: center;
+  }
+
+  .legend-item {
+    display: inline-block;
+    font-size: 0.7em;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .legend-circle {
+    float: left;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: black;
+    border-radius: 1000px;
+    margin-right: 10px;
+  }
+
 </style>
 
 <template>
@@ -111,6 +140,7 @@
               Login to add new
             </a>
           </div>
+
           <div class="box side-menu">
             <div>
               <b>Type:</b>
@@ -125,7 +155,7 @@
               </select>
             </div>
 
-            <div>
+<!--             <div>
               <b>Sorting:</b>
               <br />
               <select>
@@ -134,6 +164,7 @@
                 <option value="">Oldest</option>
               </select>
             </div>
+ -->          
           </div>
         </aside>
 
@@ -152,6 +183,14 @@
           </div>
         </main>
 
+        <div class="legend-box col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9">
+          <div class="box">
+            <div class="legend-item" v-for="type in types">
+              <div class="legend-circle" :style="`background-color: ${type.color}`"></div>
+              {{ type.name }}
+            </div>
+          </div>
+        </div>
 
         <modal
           v-if="$route.name !== 'Dashboard'"
@@ -172,11 +211,11 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
   import Logo from '@/components/Logo'
   import Modal from '@/components/Modal'
   import Loader from '@/components/Loader'
-  import ENTRIES_FOR_MAP from '@/queries/ENTRIES_FOR_MAP'
+  import QUERY_ENTRIES_FOR_MAP from '@/queries/QUERY_ENTRIES_FOR_MAP'
+  import QUERY_GAME_TYPES from '@/queries/QUERY_GAME_TYPES'
   import NadeMap from './components/NadeMap'
   import UserBar from './components/UserBar'
 
@@ -230,17 +269,7 @@
     },
     apollo: {
       types: {
-        query: gql`
-          query GameMaps($game: String) {
-            game: Game(slug: $game) {
-              types {
-                id,
-                color,
-                name
-              }
-            }
-          }
-        `,
+        query: QUERY_GAME_TYPES,
         variables () {
           return {
             game: this.$route.params.game
@@ -251,10 +280,10 @@
         }
       },
       map: {
-        query: ENTRIES_FOR_MAP,
+        query: QUERY_ENTRIES_FOR_MAP,
         variables () {
           return {
-            map: this.$route.params.map
+            map: `${this.$route.params.game}_${this.$route.params.map}`
           }
         }
       }

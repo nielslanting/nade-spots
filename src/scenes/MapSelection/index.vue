@@ -98,7 +98,7 @@
           :style="`background-image:url(${map.thumbnail})`"
         >
           <router-link :to="{ name: 'Dashboard', params: {
-            map: map.slug  
+            map: createLink(map.slug)
           }}">
             {{ map.name }}
           </router-link>
@@ -117,8 +117,8 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
   import Logo from '@/components/Logo'
+  import QUERY_GAME_MAPS from '@/queries/QUERY_GAME_MAPS'
 
   export default {
     name: 'MapSelection',
@@ -131,18 +131,7 @@
     },
     apollo: {
       maps: {
-        query: gql`
-          query GameMaps($game: String) {
-            game: Game(slug: $game) {
-              maps {
-                id,
-                name,
-                slug,
-                thumbnail
-              }
-            }
-          }
-        `,
+        query: QUERY_GAME_MAPS,
         variables () {
           console.log('apollo this', this)
           return {
@@ -153,6 +142,11 @@
           return data.game.maps
         },
         loadingKey: 'fetchingMaps'
+      }
+    },
+    methods: {
+      createLink (slug) {
+        return slug.split('_').slice(-1)[0]
       }
     }
   }

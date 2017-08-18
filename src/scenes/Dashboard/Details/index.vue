@@ -76,14 +76,23 @@
 
   .upvote {
     background-color: #2ecc71;
+    cursor: pointer;
+  }
+
+  .upvote:hover {
+    background-color: #3BD97E;
   }
 
   .downvote {
     background-color: #e74c3c;
+    cursor: pointer;
+  }
+
+  .downvote:hover {
+    background-color: #F45949;
   }
 
   .button {
-    /*background-color: #2c3e50;*/
     background-color: #ecf0f1;
     color: #2c3e50;
   }
@@ -116,18 +125,21 @@
               <i class="icon ion-image"></i> Images
             </div>
           </div>
- -->          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="upvote">
+ -->          
+<!--           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="upvote" @click="upvote">
               <i class="icon ion-arrow-up-a"></i> {{ entry.upvotes || '0' }}
             </div>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="downvote">
+            <div class="downvote" @click="downvote">
               <i class="icon ion-arrow-down-a"></i> {{ entry.downvotes || '0' }}
             </div>
           </div>
+ -->          
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg">
             <div class="content description">
+              <h3>Description</h3>
               {{ entry.description || '' }}
             </div>
           </div>
@@ -151,16 +163,38 @@
 </template>
 
 <script>
+  import MUTATION_ADD_UPVOTE_ON_USER from '@/queries/MUTATION_ADD_UPVOTE_ON_USER'
+  import MUTATION_ADD_DOWNVOTE_ON_USER from '@/queries/MUTATION_ADD_DOWNVOTE_ON_USER'
   import Player from '../components/Player'
 
   export default {
     name: 'Details',
-    props: ['entries'],
+    props: ['entries', 'user'],
     components: { Player },
     computed: {
       entry () {
         if (!this.entries) return null
         return this.entries.filter(x => x.id === this.$route.params.detailId)[0]
+      }
+    },
+    methods: {
+      upvote () {
+        this.$apollo.mutate({
+          mutation: MUTATION_ADD_UPVOTE_ON_USER,
+          variables: {
+            user: this.user.id,
+            entry: this.entry.id
+          }
+        })
+      },
+      downvote () {
+        this.$apollo.mutate({
+          mutation: MUTATION_ADD_DOWNVOTE_ON_USER,
+          variables: {
+            user: this.user.id,
+            entry: this.entry.id
+          }
+        })
       }
     }
   }

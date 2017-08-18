@@ -90,8 +90,9 @@
 <script>
   import Vue from 'vue'
   import Auth0Lock from 'auth0-lock'
-  import gql from 'graphql-tag'
   import logo from '@/assets/logo.svg'
+  import QUERY_USER from '@/queries/QUERY_USER'
+  import MUTATION_CREATE_USER from '@/queries/MUTATION_CREATE_USER'
 
   const AUTH0_CLIENT_ID = 'GwNOClBkpC2TiE0dcDUGWroXexizYxr3'
   const AUTH0_DOMAIN = 'nadespots.eu.auth0.com'
@@ -174,15 +175,7 @@
       },
       createUser (idToken, email, name, picture) {
         return this.$apollo.mutate({
-          mutation: gql`
-            mutation ($idToken: String!, $name: String!, $email: String!, $picture: String!){
-              createUser(authProvider: {auth0: {idToken: $idToken}}, name: $name, email: $email, picture: $picture) {
-                id,
-                name,
-                picture
-              }
-            }
-          `,
+          mutation: MUTATION_CREATE_USER,
           variables: {
             idToken: idToken,
             name: name,
@@ -199,15 +192,7 @@
     apollo: {
       user: {
         fetchPolicy: 'network-only',
-        query: gql`
-          query {
-            user {
-              id,
-              name,
-              picture
-            }
-          }
-        `
+        query: QUERY_USER
       }
     }
   }

@@ -238,11 +238,12 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
+  
   import { debounce } from 'lodash'
   import VueSlider from 'vue-slider-component'
   import Loader from '@/components/Loader'
-  import ENTRIES_FOR_MAP from '@/queries/ENTRIES_FOR_MAP'
+  import QUERY_ENTRIES_FOR_MAP from '@/queries/QUERY_ENTRIES_FOR_MAP'
+  import MUTATION_ADD_ENTRY from '@/queries/MUTATION_ADD_ENTRY'
   import Player from '../../components/Player'
 
   const API_KEY = 'AIzaSyC-XJtt6icSgqZDMdZzdt3648vOa_GT9jE'
@@ -339,57 +340,7 @@
       addEntry () {
         const mapId = this.$route.params.map
         this.$apollo.mutate({
-          mutation: gql`
-            mutation addEntry(
-              $description: String!,
-              $name: String!,
-              $usage: USAGE!,
-              $videoId: String!,
-              $videoStart: Int!,
-              $videoEnd: Int!,
-              $map: ID!,
-              $type: ID!,
-              $locations: Json!,
-              $userId: ID!,
-            ) {
-              createEntry(
-                description: $description,
-                name: $name,
-                usage: $usage,
-                mapId: $map,
-                typeId: $type,
-                locations: $locations,
-                video: {
-                  videoId: $videoId,
-                  start: $videoStart,
-                  end: $videoEnd
-                },
-                userId: $userId                
-              ) {
-                id,
-                createdAt,
-                description,
-                downvotes,
-                upvotes,
-                locations,
-                name,
-                type {
-                  id,
-                  name
-                  color,
-                },
-                usage,
-                video {
-                  videoId,
-                  start,
-                  end
-                },
-                user {
-                  name
-                }
-              }
-            }
-          `,
+          mutation: MUTATION_ADD_ENTRY,
           variables: Object.assign({}, this.$route.params, {
             videoId: this.video,
             videoStart: this.start ? parseInt(this.start, 10) : undefined,
@@ -400,14 +351,14 @@
           update (store, { data: { createEntry } }) {
             console.log('update', store, createEntry, this)
             const data = store.readQuery({
-              query: ENTRIES_FOR_MAP,
+              query: QUERY_ENTRIES_FOR_MAP,
               variables: {
                 map: mapId
               }
             })
             console.log('data', data)
             data.map.entries.push(createEntry)
-            store.writeQuery({ query: ENTRIES_FOR_MAP, data })
+            store.writeQuery({ query: QUERY_ENTRIES_FOR_MAP, data })
           }
         })
         .then((data) => {
