@@ -106,6 +106,12 @@
   .slider .vue-slider-tooltip {
     padding: 2px 3px;
     font-size: 10px;
+    opacity: 0.5;
+  }
+
+  .slider .vue-slider-tooltip:hover,
+  .slider .vue-slider-dot:hover .vue-slider-tooltip {
+    opacity: 1;
   }
 
   @media (max-width: 678px) {
@@ -190,6 +196,7 @@
           :min="min"
           :max="max"
           :tooltipDir="['top', 'bottom']"
+          :dot-size="10"
           @drag-end="handleDragEnd"
         ></vue-slider>
       </div>
@@ -338,7 +345,9 @@
         this.recordingStart = null
       },
       addEntry () {
+        const gameId = this.$route.params.game
         const mapId = this.$route.params.map
+
         this.$apollo.mutate({
           mutation: MUTATION_ADD_ENTRY,
           variables: Object.assign({}, this.$route.params, {
@@ -353,7 +362,7 @@
             const data = store.readQuery({
               query: QUERY_ENTRIES_FOR_MAP,
               variables: {
-                map: mapId
+                map: `${gameId}_${mapId}`
               }
             })
             console.log('data', data)

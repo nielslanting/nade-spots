@@ -155,16 +155,17 @@
               </select>
             </div>
 
-<!--             <div>
-              <b>Sorting:</b>
+            <div>
+              <b>Usage:</b>
               <br />
               <select>
-                <option value="">Rating</option>
-                <option value="">Newest</option>
-                <option value="">Oldest</option>
+                <option value="">All</option>
+                <option value="">General</option>
+                <option value="">Offensive</option>
+                <option value="">Defensive</option>
               </select>
             </div>
- -->          
+          
           </div>
         </aside>
 

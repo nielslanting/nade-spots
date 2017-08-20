@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-gql`
+export default gql`
   mutation addEntry(
     $description: String!,
     $name: String!,

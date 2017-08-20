@@ -201,6 +201,10 @@
 
           this.drawnEntries.push(generatedPath);
 
+          google.maps.event.addListener(lineSymbol, 'click', (e) => {
+            this.$emit('open', entry.id, e);
+          });
+
           google.maps.event.addListener(generatedPath, 'click', (e) => {
             this.$emit('open', entry.id, e);
           });
