@@ -1,17 +1,17 @@
-<style scoped>
+<style>
   .video {
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
+    overflow: hidden;
+    padding-bottom: 56.25% !important;
+    position: relative;
+    height: 0;
   }
   .video .item,
   .video iframe {
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
     border: 0;
   }
 

@@ -1,11 +1,10 @@
-<style>
+<style scoped>
   input,
   select,
   textarea {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     border: 0;
     background-color: #2c3e50;
-    /*background-color: #34495e;*/
     color: #ecf0f1;
     padding: 10px;
     margin-top: 10px;
