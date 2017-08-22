@@ -1,6 +1,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css?family=Montserrat');
-  @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+  @import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 
   * {
     box-sizing: border-box;
