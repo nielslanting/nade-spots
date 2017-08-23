@@ -73,6 +73,15 @@
       left:auto; 
       transform:skew(8deg) rotate(3deg);
   }
+
+  .generalDescription {
+    padding: 20px;
+    margin: 5px;
+    background-color: #34495e;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    margin-bottom: 50px;
+  }
 </style>
 
 <template>
@@ -83,13 +92,18 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="centerSearch">
-          <search-bar
+<!--           <search-bar
             :keyword="keyword"
             :options="options"
             placeholder="Search a game"
             @input="handleKeywordChange"
             @select="handleOptionSelect"
           ></search-bar>
+ -->        
+          <span class="generalDescription">
+            Nadespots is an easy tool to learn nadespots/setnades for your favorite games!
+            Start by selecting your game:
+          </span>
         </div>
       </div>
     </div>

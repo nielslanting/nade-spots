@@ -104,10 +104,15 @@
   <div>
     <div class="logo-container">
       <div class="row middle-xs">
+        <!-- Logo container -->
         <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
           <logo :hideImage="true"></logo>
         </div>
+
+        <!-- Filler -->
         <div class="col-xs-0 col-sm-3 col-md-1 col-lg-1"></div>
+
+        <!-- User container -->
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 end-xs user-bar-container">
           <user-bar
             ref="userBar"
@@ -118,11 +123,15 @@
 
       <div class="row center-xs">
         <aside class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+
+          <!-- Back button -->
           <div class="box back-button">
             <router-link :to="{name: 'MapSelection'}">
               <i class="icon ion-android-arrow-back"></i> Map selection
             </router-link>
           </div>
+
+          <!-- Add button -->
           <div class="box add-button">
             <router-link
               v-if="user"
@@ -141,7 +150,10 @@
             </a>
           </div>
 
+          <!-- Side menu -->
           <div class="box side-menu">
+
+            <!-- Type Filter -->
             <div>
               <b>Type:</b>
               <br />
@@ -155,20 +167,22 @@
               </select>
             </div>
 
+            <!-- Usage Filter -->
             <div>
               <b>Usage:</b>
               <br />
-              <select>
+              <select @change="handleUsageChange">
                 <option value="">All</option>
-                <option value="">General</option>
-                <option value="">Offensive</option>
-                <option value="">Defensive</option>
+                <option value="GENERAL">General</option>
+                <option value="OFFENSIVE">Offensive</option>
+                <option value="DEFENSIVE">Defensive</option>
               </select>
             </div>
           
           </div>
         </aside>
 
+        <!-- Main map view -->
         <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
             <nade-map
@@ -184,6 +198,7 @@
           </div>
         </main>
 
+        <!-- Legend -->
         <div class="legend-box col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9">
           <div class="box">
             <div class="legend-item" v-for="type in types">
@@ -226,7 +241,8 @@
     components: { Logo, NadeMap, Modal, Loader, UserBar },
     data () {
       return {
-        selectedType: null,
+        selectedType: '',
+        selectedUsage: '',
         map: null,
         types: []
       }
@@ -244,6 +260,9 @@
         console.log('handleTypeChange', e)
         this.selectedType = e.target.value
       },
+      handleUsageChange (e) {
+        this.selectedUsage = e.target.value
+      },
       login () {
         this.$refs.userBar.login()
       }
@@ -252,12 +271,19 @@
       entries () {
         if (!this.map || !this.map.entries) return []
 
+        let entries = this.map.entries
+
         // Filter entries on type
         if (this.selectedType) {
-          return this.map.entries.filter(x => x.type.id === this.selectedType)
+          entries = entries.filter(x => x.type.id === this.selectedType)
         }
 
-        return this.map.entries
+        // Filter entries on usage
+        if (this.selectedUsage) {
+          entries = entries.filter(x => x.usage === this.selectedUsage)
+        }
+
+        return entries
       },
       minimap () {
         if (!this.map) return null

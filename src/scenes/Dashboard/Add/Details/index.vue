@@ -127,7 +127,7 @@
             <option 
               v-for="usage in usages" :value="usage"
             >
-              {{ usage}}
+              {{ usage }}
             </option>
           </select>
         </div>
@@ -225,7 +225,7 @@
     },
     methods: {
       handleUsageChange (e) {
-        this.usage = this.usages[e.target.selectedIndex].id
+        this.usage = this.usages[e.target.selectedIndex]
       },
       handleTypeChange (e) {
         console.log('handleTypeChange', e, e.target.selectedIndex)
