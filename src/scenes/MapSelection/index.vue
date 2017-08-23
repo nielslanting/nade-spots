@@ -107,7 +107,7 @@
     </div>
 
     <p v-show="fetchingMaps">
-      Loading maps...
+      <loader></loader>
     </p>
 
     <p v-show="!fetchingMaps && (!maps || maps.length === 0)">
@@ -118,11 +118,12 @@
 
 <script>
   import Logo from '@/components/Logo'
+  import Loader from '@/components/Loader'
   import QUERY_GAME_MAPS from '@/queries/QUERY_GAME_MAPS'
 
   export default {
     name: 'MapSelection',
-    components: { Logo },
+    components: { Logo, Loader },
     data () {
       return {
         maps: [],
