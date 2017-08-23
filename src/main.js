@@ -12,6 +12,9 @@ import Vuelidate from 'vuelidate'
 
 import Youtube from 'vue-youtube-embed'
 
+import Raven from 'raven-js'
+import RavenVue from 'raven-js/plugins/vue'
+
 import App from './App'
 import router from './router'
 
@@ -66,6 +69,12 @@ Vue.use(Youtube)
 
 // Setting up form validation
 Vue.use(Vuelidate)
+
+// Setting up sentry
+Raven
+.config('https://95cb59a8fd7645178268af19ef42e582@sentry.io/207572')
+.addPlugin(RavenVue, Vue)
+.install()
 
 /* eslint-disable no-new */
 new Vue({
