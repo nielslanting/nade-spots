@@ -1,8 +1,22 @@
+image: node:latest
+
 stages:
   - test
   - build
   - deploy
 
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: build
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+      
 test:
   stage: test
   script: echo "Running tests"
