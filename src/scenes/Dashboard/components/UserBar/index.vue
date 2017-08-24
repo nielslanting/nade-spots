@@ -72,7 +72,13 @@
   <div v-else class="row middle-xs">
     <div class="user-bar row middle-xs">
       <div class="username-container col-xs-6 middle-xs">
-        {{ user.name}}
+        <span v-if="isUsernameEditable">
+          {{ user.name}}
+        </span>
+        <input
+          v-else
+          :value="user.name"
+        />
       </div>
       <div class="col-xs-6 middle-xs">
         <button
@@ -105,6 +111,7 @@
     name: 'UserBar',
     data () {
       return {
+        isUsernameEditable: false,
         user: null,
         lock: new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
           autoclose: true,

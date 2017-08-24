@@ -79,7 +79,7 @@
     margin: 5px;
     background-color: #34495e;
     border-radius: 3px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
     margin-bottom: 50px;
   }
 </style>
