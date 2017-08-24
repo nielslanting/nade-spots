@@ -16,7 +16,7 @@ install_dependencies:
   artifacts:
     paths:
       - node_modules/
-      
+
 test:
   stage: test
   script: echo "Running tests"
@@ -25,12 +25,12 @@ build:
   stage: build
   script: echo "Building the app"
 
-deploy_staging:
+deploy_dev:
   stage: deploy
   script:
-    - echo "Deploy to staging server"
+    - echo "Deploy to dev server"
   environment:
     name: staging
-    url: https://staging.example.com
+    url: https://dev.nadespots.com
   only:
   - master
