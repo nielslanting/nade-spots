@@ -39,6 +39,30 @@
 
   .username-container {
     text-align: center;
+    position: relative;
+  }
+
+  .username-container span {
+    cursor: pointer;
+  }
+
+  .username-container .icon {
+    color: #fff;
+    opacity: 0;
+    transition: opacity .1s ease-in-out;
+  }
+
+  .username-container .user-name-input {
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    border: 0;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 10px;
+    border-radius: 3px;
+  }
+
+  .username-container:hover .icon {
+    opacity: 1;
   }
 
   .user-bar {
@@ -72,12 +96,21 @@
   <div v-else class="row middle-xs">
     <div class="user-bar row middle-xs">
       <div class="username-container col-xs-6 middle-xs">
-        <span v-if="isUsernameEditable">
-          {{ user.name}}
+        <span
+          v-if="!isUsernameEditable"
+          @click="handleUserNameEditClick"
+        >
+          {{ user.name }}
+          <i class="icon ion-edit"></i>
         </span>
         <input
           v-else
-          :value="user.name"
+          ref="userNameInput"
+          class="user-name-input"
+          :value="editableUsername"
+          @input="handleUserNameInput"
+          @blur="handleUserNameBlur"
+          @keypress="handleUserNameKeyPress"
         />
       </div>
       <div class="col-xs-6 middle-xs">
@@ -99,6 +132,7 @@
   import logo from '@/assets/logo.svg'
   import QUERY_USER from '@/queries/QUERY_USER'
   import MUTATION_CREATE_USER from '@/queries/MUTATION_CREATE_USER'
+  import MUTATION_EDIT_USER_NAME from '@/queries/MUTATION_EDIT_USER_NAME'
 
   const AUTH0_CLIENT_ID = 'GwNOClBkpC2TiE0dcDUGWroXexizYxr3'
   const AUTH0_DOMAIN = 'nadespots.eu.auth0.com'
@@ -112,6 +146,7 @@
     data () {
       return {
         isUsernameEditable: false,
+        editableUsername: '',
         user: null,
         lock: new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
           autoclose: true,
@@ -160,7 +195,7 @@
               }
             })
             .catch((error) => {
-              console.log('Didnt gfet user', error)
+              console.log('Didnt get user', error)
             })
           })
         })
@@ -179,6 +214,35 @@
         localStorage.removeItem('profile')
         localStorage.removeItem('auth0IdToken')
         window.location.reload()
+      },
+      handleUserNameEditClick () {
+        this.editableUsername = this.user.name
+        this.isUsernameEditable = true
+
+        this.$nextTick(() => {
+          this.$refs.userNameInput.focus()
+        })
+      },
+      handleUserNameInput (e) {
+        console.log('input', e)
+        this.editableUsername = e.target.value
+      },
+      handleUserNameBlur () {
+        console.log('blur')
+        this.isUsernameEditable = false
+        this.editableUsername = this.user.name
+      },
+      handleUserNameKeyPress (e) {
+        if (e.keyCode === 13) {
+          this.isUsernameEditable = false
+          this.$apollo.mutate({
+            mutation: MUTATION_EDIT_USER_NAME,
+            variables: {
+              user: this.user.id,
+              name: this.editableUsername
+            }
+          })
+        }
       },
       createUser (idToken, email, name, picture) {
         return this.$apollo.mutate({
