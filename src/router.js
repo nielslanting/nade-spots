@@ -5,6 +5,7 @@ import Home from '@/scenes/Home'
 import Logout from '@/scenes/Logout'
 import Callback from '@/scenes/Callback'
 import MapSelection from '@/scenes/MapSelection'
+import MapSelectionAdd from '@/scenes/MapSelection/Add'
 import Dashboard from '@/scenes/Dashboard'
 import DashboardDetails from '@/scenes/Dashboard/Details'
 import DashboardAdd from '@/scenes/Dashboard/Add'
@@ -31,7 +32,12 @@ export default new Router({
     }, {
       path: '/:game',
       name: 'MapSelection',
-      component: MapSelection
+      component: MapSelection,
+      children: [{
+        path: '/:game/add',
+        name: 'MapSelectionAdd',
+        component: MapSelectionAdd
+      }]
     }, {
       path: '/:game/:map',
       name: 'Dashboard',

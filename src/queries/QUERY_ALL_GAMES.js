@@ -1,13 +1,15 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query GameTypes($game: String) {
-    game: Game(slug: $game) {
+  query allGames {
+    allGames {
       id,
+      name,
+      slug,
       types {
         id,
-        color,
-        name
+        name,
+        color
       }
     }
   }

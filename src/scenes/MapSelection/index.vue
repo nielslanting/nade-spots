@@ -68,6 +68,26 @@
   .map-selection {
     margin-top: 20px;
   }
+
+  .add-button-container {
+    padding: 20px;
+  }
+
+  .add-button {
+    cursor: pointer;
+    color: #fff;
+    background-color: #CD9600;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 3px;
+    text-decoration: none; 
+  }
+
+  .no-maps-found-container {
+    padding: 20px;
+  }
+
 </style>
 <template>
   <div>
@@ -110,37 +130,76 @@
       <loader></loader>
     </p>
 
-    <p v-show="!fetchingMaps && (!maps || maps.length === 0)">
+    <p class="no-maps-found-container" v-show="!fetchingMaps && (!maps || maps.length === 0)">
       No maps found for this game.
     </p>
+
+    <div class="add-button-container row center-xs">
+      <router-link
+        :to="{ name: 'MapSelectionAdd' }"
+        class="add-button"
+      >
+        Add a map
+      </router-link>
+    </div>
+
+    <modal
+      v-if="$route.name !== 'MapSelection'"
+      @close="$router.push({ name: 'MapSelection' })"
+    >
+      <router-view
+        :user="user"
+      ></router-view>
+    </modal>
+
   </div>
 </template>
 
 <script>
   import Logo from '@/components/Logo'
   import Loader from '@/components/Loader'
+  import Modal from '@/components/Modal'
   import QUERY_GAME_MAPS from '@/queries/QUERY_GAME_MAPS'
+  import MUTATION_ADD_GAME from '@/queries/MUTATION_ADD_GAME'
 
   export default {
     name: 'MapSelection',
-    components: { Logo, Loader },
+    components: { Logo, Loader, Modal },
+    props: ['user'],
     data () {
       return {
+        game: null,
         maps: [],
         fetchingMaps: 0
       }
     },
+
     apollo: {
-      maps: {
+      game: {
         query: QUERY_GAME_MAPS,
         variables () {
-          console.log('apollo this', this)
           return {
             game: this.$route.params.game || ''
           }
         },
         update (data) {
-          return data.game.maps
+          return data.game ? data.game.id : null
+        },
+        result ({ data }) {
+          if (!data.game && this.$route.params.name) {
+            this.createGame(this.$route.params.name, this.$route.params.game)
+          }
+        }
+      },
+      maps: {
+        query: QUERY_GAME_MAPS,
+        variables () {
+          return {
+            game: this.$route.params.game || ''
+          }
+        },
+        update (data) {
+          return data.game ? data.game.maps : []
         },
         loadingKey: 'fetchingMaps'
       }
@@ -148,6 +207,29 @@
     methods: {
       createLink (slug) {
         return slug.split('_').slice(-1)[0]
+      },
+
+      createGame (name, slug) {
+        console.log('createGame', name, slug)
+        this.$apollo.mutate({
+          mutation: MUTATION_ADD_GAME,
+          variables: {
+            slug,
+            name
+          },
+          update (store, { data: { createGame } }) {
+            console.log('update', store, createGame)
+            const data = store.readQuery({
+              query: QUERY_GAME_MAPS,
+              variables: {
+                game: slug
+              }
+            })
+            console.log('data', data)
+            data.game = createGame
+            store.writeQuery({ query: QUERY_GAME_MAPS, data })
+          }
+        })
       }
     }
   }
