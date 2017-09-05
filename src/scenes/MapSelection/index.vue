@@ -1,39 +1,82 @@
-<style scoped>
-  .box.map {
-    background-color: #34495e;
-    margin-top: 10px;
-    min-height: 150px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: center bottom;
-    background-size: cover;
-    background-repeat: no-repeat;
+<style lang="scss" scoped>
+  .map-title {
+    &__content {
+      text-align: left;
+    }
+
+    &__back-button {
+      color: #bdc3c7;
+      background-color: #34495e;
+      padding: 5px;
+      border-radius: 3px;
+      text-decoration: none; 
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    &__backback-button:hover {
+      color: #ecf0f1;
+    }
   }
 
-  .box.map > a {
-    display: block;
-    height: 100%;
-    text-decoration: none;
-    color: #ecf0f1;
-    font-size: 0.9em;
-    width: 100%;
-    line-height: 150px;
-    max-height: 150px;
+  .map-selection {
+    margin-top: 20px;
+
+    &__item {
+      background-color: #34495e;
+      margin-top: 10px;
+      min-height: 150px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-position: center bottom;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      a {
+        display: block;
+        height: 100%;
+        text-decoration: none;
+        color: #ecf0f1;
+        font-size: 0.9em;
+        width: 100%;
+        line-height: 150px;
+        max-height: 150px;
+      }
+
+      &:hover > a {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+
+    }
   }
 
-  .box.map:hover > a {
-    background-color: rgba(0, 0, 0, 0.7);
+  .add-map {
+    padding: 20px;
+
+    &__button {
+      cursor: pointer;
+      color: #fff;
+      background-color: #CD9600;
+      padding: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 3px;
+      text-decoration: none; 
+    }
   }
 
-  .title-col { text-align: left; }
-  .dropShadow
+  .no-maps-found {
+    padding: 20px;
+  }
+
+  .drop-shadow
   {
       position:relative;
       box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   }
-  .dropShadow:before, .dropShadow:after
+  .drop-shadow:before, .drop-shadow:after
   {
     content:"";
       position:absolute; 
@@ -45,47 +88,11 @@
       right:10px;
       border-radius:100px / 10px;
   } 
-  .dropShadow:after
+  .drop-shadow:after
   {
       right:10px; 
       left:auto; 
       transform:skew(8deg) rotate(3deg);
-  }
-
-  .back-button {
-    color: #bdc3c7;
-    background-color: #34495e;
-    padding: 5px;
-    border-radius: 3px;
-    text-decoration: none; 
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .back-button:hover {
-    color: #ecf0f1;
-  }
-
-  .map-selection {
-    margin-top: 20px;
-  }
-
-  .add-button-container {
-    padding: 20px;
-  }
-
-  .add-button {
-    cursor: pointer;
-    color: #fff;
-    background-color: #CD9600;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 3px;
-    text-decoration: none; 
-  }
-
-  .no-maps-found-container {
-    padding: 20px;
   }
 
 </style>
@@ -94,19 +101,22 @@
 
     <logo></logo>
 
-    <div class="row">
-      <div class="col-xs-12 title-col">
+    <!-- Title box -->
+    <div class="map-title row">
+      <div class="map-title__content col-xs-12 ">
         <h2>
           Map Selection
         </h2>
-        <router-link :to="{name: 'Home'}" class="back-button">
+
+        <router-link :to="{name: 'Home'}" class="map-title__back-button">
           <i class="icon ion-android-arrow-back"></i> Choose another game
         </router-link>
       </div>
     </div>
 
+    <!-- Map view -->
     <div
-      class="row center-xs map-selection"
+      class="map-selection row center-xs"
       v-show="maps && maps.length > 0"
     >
       <div
@@ -114,7 +124,7 @@
         class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
       >
         <div
-          class="box map dropShadow"
+          class="map-selection__item box dropShadow"
           :style="`background-image:url(${map.thumbnail})`"
         >
           <router-link :to="{ name: 'Dashboard', params: {
@@ -126,23 +136,27 @@
       </div>
     </div>
 
+    <!-- Loader -->
     <p v-show="fetchingMaps">
       <loader></loader>
     </p>
 
-    <p class="no-maps-found-container" v-show="!fetchingMaps && (!maps || maps.length === 0)">
+    <!-- No maps found -->
+    <p class="no-maps-found" v-show="!fetchingMaps && (!maps || maps.length === 0)">
       No maps found for this game.
     </p>
 
-    <div class="add-button-container row center-xs">
+    <!-- Add button -->
+    <div class="add-map row center-xs">
       <router-link
         :to="{ name: 'MapSelectionAdd' }"
-        class="add-button"
+        class="add-map__button"
       >
         Add a map
       </router-link>
     </div>
 
+    <!-- Add map modal -->
     <modal
       v-if="$route.name !== 'MapSelection'"
       @close="$router.push({ name: 'MapSelection' })"
@@ -164,8 +178,11 @@
 
   export default {
     name: 'MapSelection',
+
     components: { Logo, Loader, Modal },
+
     props: ['user'],
+
     data () {
       return {
         game: null,

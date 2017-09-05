@@ -1,4 +1,5 @@
-<style>
+<style lang="scss">
+  @import '~flexboxgrid-sass';
   @import url('https://fonts.googleapis.com/css?family=Montserrat');
   @import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 

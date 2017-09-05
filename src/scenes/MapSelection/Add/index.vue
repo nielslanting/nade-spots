@@ -1,11 +1,11 @@
-<style scoped>
-  .add-container {
+<style lang="scss" scoped>
+  .add-map {
     height: 100%; 
   } 
 </style>
 
 <template>
-  <div class="add-container">
+  <div class="add-map">
     <div class="row">
       <div class="col-xs-12">
         <h1>

@@ -1,10 +1,10 @@
-<style scoped>
-  .logo-container {
+<style lang="scss" scoped>
+  .header {
     text-align: left;
-  }
 
-  .logo-container .row {
-    margin: 0;
+    &__user-bar {
+      padding: 5px;
+    }
   }
 
   main,
@@ -59,50 +59,47 @@
     border-radius: 3px;
   }
 
-  .loader-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .map {
+    &__loader {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
-  .user-bar-container {
-    padding: 5px;
-  }
-
-  .legend-box {
+  .legend {
     padding: 0;
     text-align: center;
     overflow-y: hidden;
     overflow-x: auto;
+
+    &__item {
+      display: inline-block;
+      font-size: 0.7em;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    &__circle {
+      float: left;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-color: black;
+      border-radius: 1000px;
+      margin-right: 10px;
+    }
   }
 
-  .legend-box > .box {
-    text-align: center;
-  }
 
-  .legend-item {
-    display: inline-block;
-    font-size: 0.7em;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .legend-circle {
-    float: left;
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-color: black;
-    border-radius: 1000px;
-    margin-right: 10px;
-  }
 
 </style>
 
 <template>
   <div>
-    <div class="logo-container">
+
+    <div class="header">
       <div class="row middle-xs">
         <!-- Logo container -->
         <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
@@ -113,7 +110,7 @@
         <div class="col-xs-0 col-sm-3 col-md-1 col-lg-1"></div>
 
         <!-- User container -->
-        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 end-xs user-bar-container">
+        <div class="header__user-bar col-xs-12 col-sm-5 col-md-5 col-lg-5 end-xs">
           <user-bar
             ref="userBar"
             :user="user"
@@ -183,7 +180,7 @@
         </aside>
 
         <!-- Main map view -->
-        <main class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+        <main class="map col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
             <nade-map
               v-if="map && minimap"
@@ -192,17 +189,18 @@
               :entries="entries"
               @open="handleMapOpen"
             ></nade-map>
-            <div class="loader-container" v-else>
+
+            <div class="map__loader" v-else>
               <loader></loader>
             </div>
           </div>
         </main>
 
         <!-- Legend -->
-        <div class="legend-box col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9">
+        <div class="legend col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-9">
           <div class="box">
-            <div class="legend-item" v-for="type in types">
-              <div class="legend-circle" :style="`background-color: ${type.color}`"></div>
+            <div class="legend__item" v-for="type in types">
+              <div class="legend__circle" :style="`background-color: ${type.color}`"></div>
               {{ type.name }}
             </div>
           </div>

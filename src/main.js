@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 import 'isomorphic-fetch'
-import 'flexboxgrid'
 
 import { ApolloClient, createNetworkInterface } from 'apollo-client'
 import VueApollo from 'vue-apollo'

@@ -1,61 +1,70 @@
-<style scoped>
-  .centerSearch {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding-top: 70px;
-    height: 100%;
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-  }
+<style lang="scss" scoped>
+  @import '~flexboxgrid-sass';
 
-  .row {
+  .search {
     padding: 0;
     margin: 0 auto;
+
+    &__content {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      padding-top: 70px;
+      height: 100%;
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+    }
+  }
+  
+  .popular-title {
+    padding: 0;
+    margin: 0 auto;
+
+    &__content {
+      text-align: left;
+    }
   }
 
-  .box.title {
-    text-align: left;
+  .popular {
+    &__item {
+      margin-top: 10px;
+      min-height: 300px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-position: center bottom;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      a {
+        height: 300px;
+        vertical-align: middle;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #ecf0f1;
+        font-size: 0.9em;
+        width: 100%;
+        max-height: 300px;
+        opacity: 0;
+      }
+
+      &:hover > a {
+        opacity: 100;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+    }
   }
 
-  .box.game {
-    margin-top: 10px;
-    min-height: 300px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: center bottom;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  .box.game > a {
-    height: 300px;
-    vertical-align: middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: #ecf0f1;
-    font-size: 0.9em;
-    width: 100%;
-    max-height: 300px;
-    opacity: 0;
-  }
-
-  .box.game:hover > a {
-    opacity: 100;
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-
-  .dropShadow
+  .drop-shadow
   {
       position:relative;
       box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   }
-  .dropShadow:before, .dropShadow:after
+  .drop-shadow:before, .drop-shadow:after
   {
     content:"";
       position:absolute; 
@@ -67,7 +76,7 @@
       right:10px;
       border-radius:100px / 10px;
   } 
-  .dropShadow:after
+  .drop-shadow:after
   {
       right:10px; 
       left:auto; 
@@ -81,23 +90,23 @@
 
     <logo></logo>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="centerSearch">
-          <search-bar
-            :keyword="keyword"
-            :options="options"
-            placeholder="Search a game"
-            @input="handleKeywordChange"
-            @select="handleOptionSelect"
-          ></search-bar>
-        </div>
+    <!-- Search -->
+    <div class="search row">
+      <div class="search__content col-xs-12">
+        <search-bar
+          :keyword="keyword"
+          :options="options"
+          placeholder="Search a game"
+          @input="handleKeywordChange"
+          @select="handleOptionSelect"
+        ></search-bar>
       </div>
     </div>
 
-    <div class="row">
+    <!-- Popular title -->
+    <div class="popular-title row">
       <div class="col-xs-12">
-        <div class="box title">
+        <div class="popular-title__content">
           <h2>
             Popular games:
           </h2>
@@ -105,13 +114,14 @@
       </div>
     </div>
 
-    <div class="row center-xs">
+    <!-- Popular tiles -->
+    <div class="popular row center-xs">
       <div
         class="col-xs-6 col-sm-3 col-md-2 col-lg-2"
         v-for="game in popularGames"
       >
         <div
-          class="box game dropShadow"
+          class="popular__item drop-shadow"
           :style="`background-image:url(${game.thumbnail})`"
         >
           <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }">
@@ -166,9 +176,9 @@
           slug: 'warface',
           thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Warface-272x380.jpg'
         }, {
-          title: 'Crossfire',
-          slug: 'crossfire',
-          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/CrossFire-272x380.jpg'
+          title: 'Line of Sight',
+          slug: 'line-of-sight',
+          thumbnail: 'http://cdn.mmohuts.com/wp-content/uploads/2016/09/Line_of_Sight_604x423.jpg'
         }]
       }
     },
