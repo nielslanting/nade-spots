@@ -19,6 +19,7 @@
 <template>
   <div ref="container" class="map-container">
     <gmap-map
+      v-if="sourceImgLoaded"
       ref="map"
       :class="{ map: true, loaded: mapLoaded }"
       :center="{ lat: 0, lng: 0 }"
@@ -124,15 +125,17 @@
         mapTypeId: 'Terrain',
         mapLoaded: false,
         sourceImg: null,
+        sourceImgLoaded: false,
         drawnEntries: []
       }
     },
     mounted () {
-      this.$refs.map.resizePreserveCenter()
       this.sourceImg = new Image(this.minimap.size, this.minimap.size);
       this.sourceImg.setAttribute('crossOrigin', 'anonymous');
       this.sourceImg.src = this.minimap.url;
+      this.sourceImg.addEventListener('load', () => this.sourceImgLoaded = true);
 
+      this.$refs.map.resizePreserveCenter()
       window.addEventListener('resize', this.restoreCenter);
     },
     beforeDestroy() {
