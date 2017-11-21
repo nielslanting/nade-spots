@@ -185,7 +185,7 @@
         }, {
           title: 'Line of Sight',
           slug: 'line-of-sight',
-          thumbnail: 'http://cdn.mmohuts.com/wp-content/uploads/2016/09/Line_of_Sight_604x423.jpg'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjaa2otcp03y601419mel2kvj'
         }]
       }
     },
