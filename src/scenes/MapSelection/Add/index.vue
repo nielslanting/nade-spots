@@ -334,8 +334,8 @@
           this.incompleteError = true
           return
         }
-
-        const slug = `${this.$route.params.game}_${this.slug}`
+        const gameSlug = this.$route.params.game || ''
+        const slug = `${gameSlug}_${this.slug}`
 
         if (this.maps.filter(x => x.slug === slug).length > 0) {
           this.existError = true
@@ -351,6 +351,18 @@
             minimap: this.minimap,
             thumbnail: this.thumbnail,
             name: this.name
+          },
+          update (store, { data: { createMap } }) {
+            console.log('update', store, createMap, this)
+            const data = store.readQuery({
+              query: QUERY_GAME_MAPS,
+              variables: {
+                game: gameSlug
+              }
+            })
+            console.log('data', data)
+            data.game.maps.push(createMap)
+            store.writeQuery({ query: QUERY_GAME_MAPS, data })
           }
         })
         .then((data) => {
