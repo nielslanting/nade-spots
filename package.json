@@ -1,9 +1,10 @@
 {
   "name": "nade-spots",
   "version": "1.0.0",
-  "description": "Web application to show nades spots forf various games on a map",
+  "description": "Web application to show nades spots for various games on a map",
   "author": "nielsla95 <nielsla95@gmail.com>",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
