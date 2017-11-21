@@ -173,8 +173,8 @@
   import Logo from '@/components/Logo'
   import Loader from '@/components/Loader'
   import Modal from '@/components/Modal'
-  import QUERY_GAME_MAPS from '@/queries/QUERY_GAME_MAPS'
-  import MUTATION_ADD_GAME from '@/queries/MUTATION_ADD_GAME'
+  import QUERY_GAME_MAPS from '@/graphql/QUERY_GAME_MAPS'
+  import MUTATION_ADD_GAME from '@/graphql/MUTATION_ADD_GAME'
 
   export default {
     name: 'MapSelection',

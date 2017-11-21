@@ -41,7 +41,11 @@
       cursor: pointer;
     }
   }
-
+  
+  .login-button {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
 </style>
 
 <style>
@@ -59,6 +63,10 @@
           Add a new map
         </h1>
       </div> 
+    </div>
+
+    <div class="login-button">
+      <user-bar></user-bar>
     </div>
 
     <div class="row">
@@ -116,8 +124,15 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="submit">
-          <button class="submit__button">
+          <button class="submit__button" v-if="user">
             Upload
+          </button>
+          <button
+            v-else
+            class="submit__button"
+            @click="showLock"
+          >
+            Signin first
           </button>
         </div>
       </div>
@@ -127,17 +142,24 @@
 
 <script>
   import Dropzone from 'vue2-dropzone'
+  import Lock from '@/services/lock'
+  import UserBar from '@/components/UserBar'
 
   export default {
     name: 'AddMap',
+    components: { Dropzone, UserBar },
+    props: ['user'],
     data () {
       return {
         name: '',
         thumbnail: null,
-        minimap: null
+        minimap: null,
+        lock: Lock
       }
     },
-    components: { Dropzone },
+    mounted () {
+      if (!this.user) this.lock.show()
+    },
     methods: {
       thumbnailSuccess (file, jsonResult) {
         const result = JSON.parse(jsonResult)
@@ -146,6 +168,9 @@
       minimapSuccess (file, jsonResult) {
         const result = JSON.parse(jsonResult)
         this.minimap = result.url
+      },
+      showLock () {
+        this.lock.show()
       }
     }
   }

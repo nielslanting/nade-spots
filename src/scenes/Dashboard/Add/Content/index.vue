@@ -248,8 +248,8 @@
   import { debounce } from 'lodash'
   import VueSlider from 'vue-slider-component'
   import Loader from '@/components/Loader'
-  import QUERY_ENTRIES_FOR_MAP from '@/queries/QUERY_ENTRIES_FOR_MAP'
-  import MUTATION_ADD_ENTRY from '@/queries/MUTATION_ADD_ENTRY'
+  import QUERY_ENTRIES_FOR_MAP from '@/graphql/QUERY_ENTRIES_FOR_MAP'
+  import MUTATION_ADD_ENTRY from '@/graphql/MUTATION_ADD_ENTRY'
   import Player from '../../components/Player'
 
   const API_KEY = 'AIzaSyC-XJtt6icSgqZDMdZzdt3648vOa_GT9jE'

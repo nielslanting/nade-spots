@@ -96,7 +96,7 @@
   import GraphcoolBadge from '@/assets/badges/graphcool.png'
   import NetlifyBadge from '@/assets/badges/netlify.png'
   import GithubBadge from '@/assets/badges/github.png'
-  import QUERY_USER from '@/queries/QUERY_USER'
+  import QUERY_USER from '@/graphql/QUERY_USER'
 
   export default {
     name: 'app',

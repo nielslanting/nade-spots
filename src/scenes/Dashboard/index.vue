@@ -228,10 +228,10 @@
   import Logo from '@/components/Logo'
   import Modal from '@/components/Modal'
   import Loader from '@/components/Loader'
-  import QUERY_ENTRIES_FOR_MAP from '@/queries/QUERY_ENTRIES_FOR_MAP'
-  import QUERY_GAME_TYPES from '@/queries/QUERY_GAME_TYPES'
+  import UserBar from '@/components/UserBar'
+  import QUERY_ENTRIES_FOR_MAP from '@/graphql/QUERY_ENTRIES_FOR_MAP'
+  import QUERY_GAME_TYPES from '@/graphql/QUERY_GAME_TYPES'
   import NadeMap from './components/NadeMap'
-  import UserBar from './components/UserBar'
 
   export default {
     name: 'Dashboard',

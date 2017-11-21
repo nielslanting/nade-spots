@@ -163,8 +163,8 @@
 </template>
 
 <script>
-  import MUTATION_ADD_UPVOTE_ON_USER from '@/queries/MUTATION_ADD_UPVOTE_ON_USER'
-  import MUTATION_ADD_DOWNVOTE_ON_USER from '@/queries/MUTATION_ADD_DOWNVOTE_ON_USER'
+  import MUTATION_ADD_UPVOTE_ON_USER from '@/graphql/MUTATION_ADD_UPVOTE_ON_USER'
+  import MUTATION_ADD_DOWNVOTE_ON_USER from '@/graphql/MUTATION_ADD_DOWNVOTE_ON_USER'
   import Player from '../components/Player'
 
   export default {
