@@ -234,10 +234,17 @@
       handleMapClick (e) {
         console.log('handleMapClick', e)
 
-        const location = {
-          x: e.ea.x,
-          y: e.ea.y
-        }
+        const location = Object.entries(e)
+        .filter(([ key, value ]) => {
+          console.log('key', key, 'value', value)
+          if (key === 'latLng') return false
+          if (key === 'pixel') return false
+          if (!value.x) return false
+          if (!value.y) return false
+
+          return true
+        })
+        .map(([key, value]) => value)[0]
 
         console.log('handleMapClick', location)
         this.locations.push(location)

@@ -8,6 +8,7 @@ export default gql`
     $slug: String!,
     $thumbnail: String!,
     $game: ID!
+    $userId: ID!,
   ) {
     createMap(
       minimap: $minimap,
@@ -15,7 +16,8 @@ export default gql`
       name: $name,
       slug: $slug,
       thumbnail: $thumbnail,
-      gameId: $game
+      gameId: $game,
+      userId: $userId
     ) {
       id,
       minimap,

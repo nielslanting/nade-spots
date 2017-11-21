@@ -350,7 +350,8 @@
             game: this.game,
             minimap: this.minimap,
             thumbnail: this.thumbnail,
-            name: this.name
+            name: this.name,
+            userId: this.user.id
           },
           update (store, { data: { createMap } }) {
             console.log('update', store, createMap, this)

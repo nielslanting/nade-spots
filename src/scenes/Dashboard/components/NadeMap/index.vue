@@ -85,7 +85,7 @@
       var icons = line.get('icons');
       icons[0].offset = (count / 2) + '%';
       line.set('icons', icons);
-  }, 20);
+    }, 20);
   }
 
   /**
@@ -116,6 +116,21 @@
     return {x: x, y: y};
   }
 
+  function getPixelLocation(map, currentLatLng) {
+    const scale = Math.pow(2, map.getZoom());
+    const nw = new google.maps.LatLng(
+        map.getBounds().getNorthEast().lat(),
+        map.getBounds().getSouthWest().lng()
+    );
+    const worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+    const worldCoordinate = map.getProjection().fromLatLngToPoint(currentLatLng);
+    const currentLocation = new google.maps.Point(
+        Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+        Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+    );
+
+    return currentLocation;
+  }
 
   export default {
     name: 'Map',
@@ -252,7 +267,6 @@
       },
 
       handleMapClick (e) {
-        console.log('handleMapClick', e)
         this.$emit('click', e);
       }
     }
