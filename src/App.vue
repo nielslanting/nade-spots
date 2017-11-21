@@ -84,7 +84,7 @@
         <img :src="netlifyBadge" alt="">
       </a>
 
-      <a href="https://github.com">
+      <a href="https://github.com/nielslanting/nade-spots">
         <img :src="githubBadge" alt="">
       </a>
 
