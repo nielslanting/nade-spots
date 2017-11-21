@@ -59,6 +59,11 @@
     }
   }
 
+  .title {
+    font-size: 1.1em;
+    color: #bdc3c7;
+  }
+
   .drop-shadow
   {
       position:relative;
@@ -89,6 +94,8 @@
   <div>
 
     <logo></logo>
+
+    <h1 class="title">Learn nades the easy way.</h1>
 
     <!-- Search -->
     <div class="search row">

@@ -76,19 +76,36 @@
       ></router-view>
     </main>
     <footer>
-      Nadespots - Experiment created by Niels 'Animosity' Lanting - All images belong to their respective owners - {{ this.currentYear }}
+      <a href="https://graph.cool">
+        <img :src="graphcoolBadge" alt="">
+      </a>
+
+      <a href="https://netlify.com">
+        <img :src="netlifyBadge" alt="">
+      </a>
+
+      <a href="https://github.com">
+        <img :src="githubBadge" alt="">
+      </a>
+
     </footer>
   </div>
 </template>
 
 <script>
+  import GraphcoolBadge from '@/assets/badges/graphcool.png'
+  import NetlifyBadge from '@/assets/badges/netlify.png'
+  import GithubBadge from '@/assets/badges/github.png'
   import QUERY_USER from '@/queries/QUERY_USER'
 
   export default {
     name: 'app',
     data () {
       return {
-        user: null
+        user: null,
+        graphcoolBadge: GraphcoolBadge,
+        netlifyBadge: NetlifyBadge,
+        githubBadge: GithubBadge
       }
     },
     computed: {
