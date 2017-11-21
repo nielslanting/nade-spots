@@ -97,7 +97,6 @@
             id="thumbnailDropzone"
             class="thumbnailDropzone"
             :options="{
-              autoQueue: false,
               url: 'https://api.graph.cool/file/v1/cj59tz3nfrlhy0105885qy550',
               paramName: 'data',
               useFontAwesome: true,
@@ -137,11 +136,31 @@
       </div> 
     </div>
 
+    <div class="row" v-show="incompleteError">
+      <div class="col-xs-12">
+        <div class="box" style="background-color: #e74c3c">
+          <b>Warning: </b> Please enter all the fields!
+        </div>
+      </div>
+    </div>
+
+    <div class="row" v-show="existError">
+      <div class="col-xs-12">
+        <div class="box" style="background-color: #e74c3c">
+          <b>Warning: </b> This map already exists!
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-xs-12">
         <div class="submit">
-          <button class="submit__button" v-if="user">
-            Upload
+          <button
+            v-if="user"
+            class="submit__button"
+            @click="handleCreateMap"
+          >
+            Create map
           </button>
           <button
             v-else
@@ -159,8 +178,11 @@
 <script>
   import Dropzone from 'vue2-dropzone'
   import 'vue2-dropzone/dist/vue2Dropzone.css'
+  import slug from 'slug'
   import Lock from '@/services/lock'
   import UserBar from '@/components/UserBar'
+  import MUTATION_CREATE_MAP from '@/graphql/MUTATION_CREATE_MAP'
+  import QUERY_GAME_MAPS from '@/graphql/QUERY_GAME_MAPS'
 
   const base64ToFile = (dataURI, origFile) => {
     let byteString, mimestring
@@ -200,14 +222,43 @@
     props: ['user'],
     data () {
       return {
+        lock: Lock,
         name: '',
         thumbnail: null,
         minimap: null,
-        lock: Lock
+        incompleteError: false,
+        existError: false
       }
     },
-    mounted () {
-      if (!this.user) this.lock.show()
+    apollo: {
+      game: {
+        query: QUERY_GAME_MAPS,
+        variables () {
+          return {
+            game: this.$route.params.game || ''
+          }
+        },
+        update (data) {
+          return data.game ? data.game.id : null
+        },
+        result ({ data }) {
+          if (!data.game && this.$route.params.name) {
+            this.createGame(this.$route.params.name, this.$route.params.game)
+          }
+        }
+      },
+      maps: {
+        query: QUERY_GAME_MAPS,
+        variables () {
+          return {
+            game: this.$route.params.game || ''
+          }
+        },
+        update (data) {
+          return data.game ? data.game.maps : []
+        },
+        loadingKey: 'fetchingMaps'
+      }
     },
     methods: {
       thumbnailSuccess (file, jsonResult) {
@@ -277,6 +328,43 @@
         })
 
         reader.readAsDataURL(origFile)
+      },
+      handleCreateMap () {
+        if (!this.name || !this.thumbnail || !this.minimap) {
+          this.incompleteError = true
+          return
+        }
+
+        const slug = `${this.$route.params.game}_${this.slug}`
+
+        if (this.maps.filter(x => x.slug === slug).length > 0) {
+          this.existError = true
+          return
+        }
+
+        this.$apollo.mutate({
+          mutation: MUTATION_CREATE_MAP,
+          variables: {
+            minimapSize: 1024,
+            slug: slug,
+            game: this.game,
+            minimap: this.minimap,
+            thumbnail: this.thumbnail,
+            name: this.name
+          }
+        })
+        .then((data) => {
+          console.log('mapEntry success', data)
+          this.$router.push({ name: 'MapSelection' })
+        })
+        .catch((error) => {
+          console.error('mapEntry error', error)
+        })
+      }
+    },
+    computed: {
+      slug () {
+        return slug(this.name).toLowerCase()
       }
     }
   }
