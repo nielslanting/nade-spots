@@ -138,20 +138,6 @@
       </div>
     </div>
 
-
-    <div class="popular row center-xs">
-      <div
-        class="col-xs-12"
-      >
-        <h2 class="title">
-          Learning nades is hard.
-        </h2>
-        <p>
-          Learning nades, watching countless of videos to learn nades or relying on team mates to know nades. It's way too hard. Well those times are by gones.
-        </p>
-      </div>
-    </div>
-
   </div>
 </template>
 
