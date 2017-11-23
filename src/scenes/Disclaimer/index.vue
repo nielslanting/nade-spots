@@ -1,0 +1,27 @@
+<template>
+  <div>
+    Disclaimer
+
+    Last updated: November 22, 2017
+
+    The information contained on https://www.nadespots.com website (the "Service") is for general information purposes only.
+
+    Nadespots assumes no responsibility for errors or omissions in the contents on the Service.
+
+    In no event shall Nadespots be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service or the contents of the Service. Nadespots reserves the right to make additions, deletions, or modification to the contents on the Service at any time without prior notice.
+
+    Nadespots does not warrant that the website is free of viruses or other harmful components.
+
+    External links disclaimer
+
+    https://www.nadespots.com website may contain links to external websites that are not provided or maintained by or in any way affiliated with Nadespots
+
+    Please note that the Nadespots does not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Disclaimer'
+  }
+</script>
