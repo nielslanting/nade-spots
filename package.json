@@ -25,6 +25,7 @@
     "subscriptions-transport-ws": "^0.8.1",
     "vue": "^2.3.3",
     "vue-apollo": "^2.1.0-beta.18",
+    "vue-gtm": "^1.0.2",
     "vue-router": "^2.3.1",
     "vue-slider-component": "^2.3.4",
     "vue-youtube-embed": "^2.1.1",

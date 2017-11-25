@@ -14,6 +14,8 @@ import Youtube from 'vue-youtube-embed'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 
+import VueGtm from 'vue-gtm'
+
 import App from './App'
 import router from './router'
 
@@ -68,6 +70,11 @@ Vue.use(Youtube)
 
 // Setting up form validation
 Vue.use(Vuelidate)
+
+// Setting up Google Tag Manager
+Vue.use(VueGtm, {
+  vueRouter: router
+})
 
 // Setting up sentry
 Raven
