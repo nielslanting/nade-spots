@@ -32,19 +32,19 @@
   ::-webkit-scrollbar {
       width: 6px;
   }
-   
+
   /* Track */
   ::-webkit-scrollbar-track {
       border-radius: 3px;
   }
-   
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
       border-radius: 2px;
-      background: #ecf0f1; 
+      background: #ecf0f1;
   }
   ::-webkit-scrollbar-thumb:window-inactive {
-    background: #bdc3c7; 
+    background: #bdc3c7;
   }
   h1 > em {
     font-style: normal;
@@ -58,13 +58,36 @@
     font-size: 1.4em;
   }
 
-  footer {
+  .footer {
     font-size: 0.7em;
     text-transform: uppercase;
     text-align: center;
     padding-top: 50px;
     color: #7f8c8d;
     letter-spacing: 0.06em;
+    height: 55px;
+    line-height: 55px;
+    margin-bottom: 100px;
+
+
+    &__left {
+      float: left;
+    }
+
+    &__right {
+      float: right;
+      text-align: right;
+
+      & a {
+        text-decoration: none;
+        color: #999;
+        margin: 5px;
+
+        &:hover {
+          color: #cd9600;
+        }
+      }
+    }
   }
 </style>
 
@@ -75,19 +98,30 @@
         :user="user"
       ></router-view>
     </main>
-    <footer>
-      <a href="https://graph.cool">
-        <img :src="graphcoolBadge" alt="">
-      </a>
 
-      <a href="https://netlify.com">
-        <img :src="netlifyBadge" alt="">
-      </a>
+    <footer class="footer">
+      <div class="footer__left">
+        <a href="https://graph.cool">
+          <img :src="graphcoolBadge" alt="">
+        </a>
 
-      <a href="https://github.com/nielslanting/nade-spots">
-        <img :src="githubBadge" alt="">
-      </a>
+        <a href="https://netlify.com">
+          <img :src="netlifyBadge" alt="">
+        </a>
 
+        <a href="https://github.com/nielslanting/nade-spots">
+          <img :src="githubBadge" alt="">
+        </a>
+      </div>
+
+      <div class="footer__right">
+        <router-link :to="{ name: 'Disclaimer' }">
+          Dislaimer
+        </router-link>
+        <router-link :to="{ name: 'Terms' }">
+          Terms
+        </router-link>
+      </div>
     </footer>
   </div>
 </template>

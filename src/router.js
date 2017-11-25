@@ -4,8 +4,13 @@ import Router from 'vue-router'
 import Home from '@/scenes/Home'
 import Logout from '@/scenes/Logout'
 import Callback from '@/scenes/Callback'
+
+import Disclaimer from '@/scenes/Disclaimer'
+import Terms from '@/scenes/Terms'
+
 import MapSelection from '@/scenes/MapSelection'
 import MapSelectionAdd from '@/scenes/MapSelection/Add'
+
 import Dashboard from '@/scenes/Dashboard'
 import DashboardDetails from '@/scenes/Dashboard/Details'
 import DashboardAdd from '@/scenes/Dashboard/Add'
@@ -21,6 +26,14 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    }, {
+      path: '/disclaimer',
+      name: 'Disclaimer',
+      component: Disclaimer
+    }, {
+      path: '/terms',
+      name: 'Terms',
+      component: Terms
     }, {
       path: '/callback',
       name: 'Callback',

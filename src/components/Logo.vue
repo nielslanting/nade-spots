@@ -1,20 +1,22 @@
-<style scoped>
+<style lang="scss" scoped>
   .logo {
-    width: 100px;
-    transform: rotate(-15deg);
-  }
+    & img {
+      width: 100px;
+      transform: rotate(-15deg);
+      color: white;
+    }
 
-  a {
-    text-decoration: none;
-    color: #ecf0f1;
+    & a {
+      text-decoration: none;
+      color: #ecf0f1;
+    }
   }
 </style>
 
 <template>
-  <div>
+  <div class="logo">
     <img
-      v-show="!hideImage"
-      class="logo"
+      class="logo__img"
       src="../assets/logo.svg"
       alt="Nadespots logo"
     >
