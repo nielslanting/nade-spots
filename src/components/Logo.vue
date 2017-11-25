@@ -16,6 +16,7 @@
 <template>
   <div class="logo">
     <img
+      v-show="!hideImage"
       class="logo__img"
       src="../assets/logo.svg"
       alt="Nadespots logo"
