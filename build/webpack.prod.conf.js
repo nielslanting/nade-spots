@@ -119,12 +119,15 @@ var webpackConfig = merge(baseWebpackConfig, {
         '/disclaimer',
         '/terms',
         '/black-squad',
+        '/black-squad/dust-shield',
         '/skill-special-force-2',
         '/counter-strike-global-offensive',
         '/alliance-of-valiant-arms',
         '/warface',
         '/line-of-sight'
-      ]
+      ], {
+        outputToFile: true
+      }
     )
   ]
 })
