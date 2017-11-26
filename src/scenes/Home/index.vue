@@ -167,23 +167,23 @@
         popularGames: [{
           title: 'Black Squad',
           slug: 'black-squad',
-          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Black%20Squad-272x380.jpg'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjagnywjp02m101568bbio7v2'
         }, {
           title: 'S.K.I.L.L.: Special Force 2',
           slug: 'skill-special-force-2',
-          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/S.K.I.L.L.:%20Special%20Force%202-272x380.jpg'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjagny9z102lx0156ndgni4aj'
         }, {
           title: 'Counter Strike: Global Offensive',
           slug: 'counter-strike-global-offensive',
-          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjagnxfea02lt0156xkmwu3h6'
         }, {
           title: 'Alliance of Valiant Arms',
           slug: 'alliance-of-valiant-arms',
-          thumbnail: 'http://i.imgur.com/91lkMZv.png'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjagnsw0002hv0183mtgpptw2'
         }, {
           title: 'Warface',
           slug: 'warface',
-          thumbnail: 'https://static-cdn.jtvnw.net/ttv-boxart/Warface-272x380.jpg'
+          thumbnail: 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/cjagnwp5l02lh0156fhqmva5p'
         }, {
           title: 'Line of Sight',
           slug: 'line-of-sight',
