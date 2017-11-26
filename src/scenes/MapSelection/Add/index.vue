@@ -1,8 +1,8 @@
 <style lang="scss" scoped>
   .add-map {
-    height: 100%; 
-  } 
-  
+    height: 100%;
+  }
+
   .box {
     text-align: left;
     background-color: #34495e;
@@ -46,7 +46,7 @@
       cursor: pointer;
     }
   }
-  
+
   .login-button {
     margin-left: 8px;
     margin-right: 8px;
@@ -67,7 +67,7 @@
         <h1>
           Add a new map
         </h1>
-      </div> 
+      </div>
     </div>
 
     <div class="login-button">
@@ -85,7 +85,7 @@
             v-model="name"
           >
         </div>
-      </div> 
+      </div>
     </div>
 
     <div class="row">
@@ -106,7 +106,7 @@
           ></dropzone>
 
         </div>
-      </div> 
+      </div>
 
       <div class="col-xs-12 col-md-6">
         <div class="box">
@@ -133,7 +133,7 @@
           ></dropzone>
 
         </div>
-      </div> 
+      </div>
     </div>
 
     <div class="row" v-show="incompleteError">
@@ -183,6 +183,9 @@
   import UserBar from '@/components/UserBar'
   import MUTATION_CREATE_MAP from '@/graphql/MUTATION_CREATE_MAP'
   import QUERY_GAME_MAPS from '@/graphql/QUERY_GAME_MAPS'
+
+  const UPLOAD_LOCATION = 'https://files.graph.cool/cj59tz3nfrlhy0105885qy550/'
+  const CDN_LOCATION = 'https://www.nadespots.com/cdn/'
 
   const base64ToFile = (dataURI, origFile) => {
     let byteString, mimestring
@@ -263,11 +266,13 @@
     methods: {
       thumbnailSuccess (file, jsonResult) {
         const result = JSON.parse(jsonResult)
-        this.thumbnail = result.url
+        const url = result.url.replace(UPLOAD_LOCATION, CDN_LOCATION)
+        this.thumbnail = url
       },
       minimapSuccess (file, jsonResult) {
         const result = JSON.parse(jsonResult)
-        this.minimap = result.url
+        const url = result.url.replace(UPLOAD_LOCATION, CDN_LOCATION)
+        this.minimap = url
       },
       showLock () {
         this.lock.show()
