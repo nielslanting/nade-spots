@@ -43,7 +43,7 @@ export default new Router({
       name: 'Logout',
       component: Logout
     }, {
-      path: '/:game',
+      path: '/:game/',
       name: 'MapSelection',
       component: MapSelection,
       children: [{

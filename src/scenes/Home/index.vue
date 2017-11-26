@@ -16,7 +16,7 @@
       margin: auto;
     }
   }
-  
+
   .popular-title {
     padding: 0;
     margin: 0 auto;
@@ -72,7 +72,7 @@
   .drop-shadow:before, .drop-shadow:after
   {
     content:"";
-      position:absolute; 
+      position:absolute;
       z-index:-1;
       box-shadow:0 0 20px rgba(0,0,0,0.8);
       top:0;
@@ -80,11 +80,11 @@
       left:10px;
       right:10px;
       border-radius:100px / 10px;
-  } 
+  }
   .drop-shadow:after
   {
-      right:10px; 
-      left:auto; 
+      right:10px;
+      left:auto;
       transform:skew(8deg) rotate(3deg);
   }
 
@@ -131,8 +131,9 @@
           class="popular__item drop-shadow"
           :style="`background-image:url(${game.thumbnail})`"
         >
-          <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }">
-            {{ game.title }} 
+          <!-- <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }" exact> -->
+          <router-link :to="`${game.slug}/`">
+            {{ game.title }}
           </router-link>
         </div>
       </div>

@@ -9,7 +9,7 @@
       background-color: #34495e;
       padding: 5px;
       border-radius: 3px;
-      text-decoration: none; 
+      text-decoration: none;
       padding-left: 10px;
       padding-right: 10px;
     }
@@ -63,7 +63,7 @@
       padding-left: 20px;
       padding-right: 20px;
       border-radius: 3px;
-      text-decoration: none; 
+      text-decoration: none;
     }
   }
 
@@ -79,7 +79,7 @@
   .drop-shadow:before, .drop-shadow:after
   {
     content:"";
-      position:absolute; 
+      position:absolute;
       z-index:-1;
       box-shadow:0 0 20px rgba(0,0,0,0.8);
       top:0;
@@ -87,11 +87,11 @@
       left:10px;
       right:10px;
       border-radius:100px / 10px;
-  } 
+  }
   .drop-shadow:after
   {
-      right:10px; 
-      left:auto; 
+      right:10px;
+      left:auto;
       transform:skew(8deg) rotate(3deg);
   }
 
@@ -127,9 +127,11 @@
           class="map-selection__item box dropShadow"
           :style="`background-image:url(${map.thumbnail})`"
         >
-          <router-link :to="{ name: 'Dashboard', params: {
+<!--           <router-link :to="{ name: 'Dashboard', params: {
             map: createLink(map.slug)
           }}">
+ -->
+          <router-link :to="`${createLink(map.slug)}/`">
             {{ map.name }}
           </router-link>
         </div>

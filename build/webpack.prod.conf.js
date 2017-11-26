@@ -126,7 +126,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         '/warface',
         '/line-of-sight'
       ], {
-        outputToFile: true
+        outputToFile: false
       }
     )
   ]
