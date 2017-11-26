@@ -45,6 +45,7 @@ export default new Router({
     }, {
       path: '/:game/',
       name: 'MapSelection',
+      pathToRegexpOptions: { strict: true },
       component: MapSelection,
       children: [{
         path: '/:game/add',
@@ -54,6 +55,7 @@ export default new Router({
     }, {
       path: '/:game/:map/',
       name: 'Dashboard',
+      pathToRegexpOptions: { strict: true },
       component: Dashboard,
       children: [{
         path: '/:game/:map/add',

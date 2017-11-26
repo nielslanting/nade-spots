@@ -127,11 +127,9 @@
           class="map-selection__item box dropShadow"
           :style="`background-image:url(${map.thumbnail})`"
         >
-<!--           <router-link :to="{ name: 'Dashboard', params: {
+          <router-link :to="{ name: 'Dashboard', params: {
             map: createLink(map.slug)
           }}">
- -->
-          <router-link :to="`${createLink(map.slug)}/`">
             {{ map.name }}
           </router-link>
         </div>

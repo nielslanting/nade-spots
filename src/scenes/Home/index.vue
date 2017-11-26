@@ -131,8 +131,7 @@
           class="popular__item drop-shadow"
           :style="`background-image:url(${game.thumbnail})`"
         >
-          <!-- <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }" exact> -->
-          <router-link :to="`${game.slug}/`">
+          <router-link :to="{ name: 'MapSelection', params: { game: game.slug } }">
             {{ game.title }}
           </router-link>
         </div>
