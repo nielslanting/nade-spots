@@ -52,7 +52,7 @@ export default new Router({
         component: MapSelectionAdd
       }]
     }, {
-      path: '/:game/:map',
+      path: '/:game/:map/',
       name: 'Dashboard',
       component: Dashboard,
       children: [{

@@ -101,15 +101,15 @@
 
     <footer class="footer">
       <div class="footer__left">
-        <a href="https://graph.cool">
+        <a href="https://graph.cool" target="_blank">
           <img :src="graphcoolBadge" alt="">
         </a>
 
-        <a href="https://netlify.com">
+        <a href="https://netlify.com" target="_blank">
           <img :src="netlifyBadge" alt="">
         </a>
 
-        <a href="https://github.com/nielslanting/nade-spots">
+        <a href="https://github.com/nielslanting/nade-spots" target="_blank">
           <img :src="githubBadge" alt="">
         </a>
       </div>
