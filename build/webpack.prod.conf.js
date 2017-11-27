@@ -112,23 +112,23 @@ var webpackConfig = merge(baseWebpackConfig, {
       stripPrefix: 'dist/'
     }),
     // prerender plugin
-    new PrerenderSpaPlugin(
-      path.join(__dirname, '../dist'),
-      [
-        '/',
-        '/disclaimer',
-        '/terms',
-        '/black-squad',
-        '/black-squad/dust-shield',
-        '/skill-special-force-2',
-        '/counter-strike-global-offensive',
-        '/alliance-of-valiant-arms',
-        '/warface',
-        '/line-of-sight'
-      ], {
-        outputToFile: false
-      }
-    )
+    // new PrerenderSpaPlugin(
+    //   path.join(__dirname, '../dist'),
+    //   [
+    //     '/',
+    //     '/disclaimer',
+    //     '/terms',
+    //     '/black-squad',
+    //     '/black-squad/dust-shield',
+    //     '/skill-special-force-2',
+    //     '/counter-strike-global-offensive',
+    //     '/alliance-of-valiant-arms',
+    //     '/warface',
+    //     '/line-of-sight'
+    //   ], {
+    //     outputToFile: false
+    //   }
+    // )
   ]
 })
 
