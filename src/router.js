@@ -43,6 +43,9 @@ export default new Router({
       name: 'Logout',
       component: Logout
     }, {
+      path: '/:game',
+      redirect: { name: 'MapSelection' }
+    }, {
       path: '/:game/',
       name: 'MapSelection',
       pathToRegexpOptions: { strict: true },
@@ -52,6 +55,9 @@ export default new Router({
         name: 'MapSelectionAdd',
         component: MapSelectionAdd
       }]
+    }, {
+      path: '/:game/:map',
+      redirect: { name: 'Dashboard' }
     }, {
       path: '/:game/:map/',
       name: 'Dashboard',
