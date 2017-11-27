@@ -72,9 +72,11 @@ Vue.use(Youtube)
 Vue.use(Vuelidate)
 
 // Setting up Google Tag Manager
-Vue.use(VueGtm, {
-  vueRouter: router
-})
+if (process.env.NODE_ENV === 'production') {
+  Vue.use(VueGtm, {
+    vueRouter: router
+  })
+}
 
 // Setting up sentry
 Raven
