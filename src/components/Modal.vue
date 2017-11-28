@@ -54,3 +54,15 @@
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'Modal',
+    mounted () {
+      document.body.style.overflow = 'hidden'
+    },
+    beforeDestroy () {
+      document.body.style.overflow = 'auto'
+    }
+  }
+</script>
