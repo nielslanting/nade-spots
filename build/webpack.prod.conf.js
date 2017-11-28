@@ -126,11 +126,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     //     '/warface',
     //     '/line-of-sight'
     //   ], {
-    //     outputToFile: false,
-    //     capturePartially: {
-    //       mainElement: 'app',
-    //       rootFile: 'index.html'
-    //     }
+    //     captureAfterElementExists: '#app',
+    //     captureAfterTime: 3000,
+    //     captureElement: true,
     //   }
     // )
   ]
