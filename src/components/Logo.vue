@@ -2,6 +2,7 @@
   .logo {
     & img {
       width: 100px;
+      height: 100px;
       transform: rotate(-15deg);
       color: white;
     }
@@ -17,6 +18,7 @@
   <div class="logo">
     <img
       v-show="!hideImage"
+      :style="{ height: 100, width: 100 }"
       class="logo__img"
       src="../assets/logo.svg"
       alt="Nadespots logo"
