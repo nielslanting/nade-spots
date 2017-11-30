@@ -10,7 +10,6 @@
       display: flex;
       justify-content: center;
       padding-top: 70px;
-      height: 100%;
       width: 100%;
       max-width: 500px;
       margin: auto;
