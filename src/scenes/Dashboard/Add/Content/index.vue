@@ -260,9 +260,9 @@
     components: { Loader, Player, VueSlider },
     data () {
       return {
-        query: 'Animosity black squa',
+        query: '',
         video: '',
-        start: null,
+        start: 0,
         end: null,
         valid: false,
         foundVideos: [],
