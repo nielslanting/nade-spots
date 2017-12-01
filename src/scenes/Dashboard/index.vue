@@ -36,9 +36,11 @@
     height: 100%;
   }
   .back-button {
+    height: 60px;
     background-color: #7f8c8d;
   }
   .add-button {
+    height: 60px;
     background-color: #CD9600;
   }
 

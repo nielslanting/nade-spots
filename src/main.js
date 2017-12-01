@@ -84,6 +84,9 @@ Raven
 .addPlugin(RavenVue, Vue)
 .install()
 
+// Clear the div
+document.getElementById('app').innerHTML = ''
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
