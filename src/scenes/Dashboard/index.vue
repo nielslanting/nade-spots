@@ -184,6 +184,9 @@
         <!-- Main map view -->
         <main class="map col-xs-12 col-sm-8 col-md-9 col-lg-9">
           <div class="box">
+            <i class="ion-ios-help-outline"></i> Click on a line to see the details of the nade
+          </div>
+          <div class="box">
             <nade-map
               v-if="map && minimap"
               :name="$route.params.map"
@@ -247,6 +250,12 @@
         types: []
       }
     },
+    metaInfo () {
+      return {
+        title: `Nadespots - ${this.map ? this.map.name : ''}`
+      }
+    },
+
     methods: {
       handleMapOpen (id) {
         this.$router.push({

@@ -16,6 +16,8 @@ import RavenVue from 'raven-js/plugins/vue'
 
 import VueGtm from 'vue-gtm'
 
+import Meta from 'vue-meta'
+
 import App from './App'
 import router from './router'
 
@@ -64,6 +66,9 @@ Vue.use(VueGoogleMaps, {
     key: 'AIzaSyB5Bito_jYPWhhjLWyX9FcUpZyKASo7jtM'
   }
 })
+
+// Setting up meta plugin
+Vue.use(Meta)
 
 // Setting up Youtube player
 Vue.use(Youtube)

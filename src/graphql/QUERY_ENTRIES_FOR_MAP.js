@@ -4,6 +4,7 @@ export default gql`
   query EntriesForMap($map: String!) {
     map: Map(slug: $map) {
       id,
+      name,
       minimap,
       minimapSize,
       entries {

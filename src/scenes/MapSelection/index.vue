@@ -4,6 +4,10 @@
       text-align: left;
     }
 
+    &__back-button-container {
+      margin-top: 50px;
+    }
+
     &__back-button {
       color: #bdc3c7;
       background-color: #34495e;
@@ -16,6 +20,10 @@
 
     &__backback-button:hover {
       color: #ecf0f1;
+    }
+
+    &__title {
+      margin-bottom: 0px;
     }
   }
 
@@ -99,18 +107,24 @@
 <template>
   <div>
 
-    <logo></logo>
+    <logo :no-header="true"></logo>
 
     <!-- Title box -->
     <div class="map-title row">
       <div class="map-title__content col-xs-12 ">
-        <h2>
-          Map Selection
-        </h2>
+        <h1 class="map-title__title">
+          {{ name }} nade spots
+        </h1>
 
-        <router-link :to="{name: 'Home'}" class="map-title__back-button">
-          <i class="icon ion-android-arrow-back"></i> Choose another game
-        </router-link>
+        <p>
+          Select the map you want to learn nade spots for.   
+        </p>
+
+        <div class="map-title__back-button-container">
+          <router-link :to="{name: 'Home'}" class="map-title__back-button">
+            <i class="icon ion-android-arrow-back"></i> Choose another game
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -191,7 +205,24 @@
       }
     },
 
+    metaInfo () {
+      return {
+        title: `Nadespots - ${this.name}`
+      }
+    },
+
     apollo: {
+      name: {
+        query: QUERY_GAME_MAPS,
+        variables () {
+          return {
+            game: this.$route.params.game || ''
+          }
+        },
+        update (data) {
+          return data.game ? data.game.name : null
+        }
+      },
       game: {
         query: QUERY_GAME_MAPS,
         variables () {
