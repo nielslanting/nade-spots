@@ -63,7 +63,8 @@ Vue.use(VueApollo)
 // Setting up Google Maps
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyB5Bito_jYPWhhjLWyX9FcUpZyKASo7jtM'
+    key: 'AIzaSyB5Bito_jYPWhhjLWyX9FcUpZyKASo7jtM',
+    v: '3.30'
   }
 })
 
