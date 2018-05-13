@@ -16,12 +16,20 @@
     position: relative;
     /*background-color: #34495e;*/
     background-color: #2c3e50;
-    margin: 20px;
-    padding: 15px;
-    height: calc(100% - 40px);
+    margin: 10px;
+    height: calc(100% - 20px);
+    padding: 10px;
     border-radius: 3px;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  @media (min-width: 900px) {
+    .modal {
+      margin: 20px;
+      height: calc(100% - 40px);
+      padding: 15px;
+    }
   }
 
   .modal .close {
@@ -48,7 +56,7 @@
   <div class="modal-container" @scroll.stop.prevent>
     <div class="modal" @scroll.stop.prevent>
       <div class="close" @click="$emit('close')">
-        <i class="icon ion-close"></i>  
+        <i class="icon ion-close"></i>
       </div>
       <slot @scroll.stop.prevent></slot>
     </div>

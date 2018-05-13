@@ -191,7 +191,7 @@
             scale: 2,
             strokeColor: entry.type.color,
             strokeOpacity: 1.0,
-            strokeWeight: 3,
+            strokeWeight: 4,
           };
 
           var coords = generatePolyPath(entry.locations)
@@ -208,7 +208,7 @@
             geodesic: false,
             strokeColor: entry.type.color,
             strokeOpacity: 1.0,
-            strokeWeight: 3,
+            strokeWeight: 4,
           });
 
           // Paint the path on the map

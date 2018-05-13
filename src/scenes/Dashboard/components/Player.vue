@@ -4,6 +4,7 @@
     padding-bottom: 56.25% !important;
     position: relative;
     height: 0;
+    border: 1px solid black;
   }
   .video .item,
   .video iframe {

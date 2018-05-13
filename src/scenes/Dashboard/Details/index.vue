@@ -1,8 +1,13 @@
 <style scoped>
-  .details-menu,
+  .details-menu {
+    margin: 0;
+    padding: 0;
+  }
+
   .details-content {
     margin: 0;
     padding: 0;
+    max-width: 1200px;
   }
 
   .details-container {
@@ -71,7 +76,7 @@
     border-radius: 3px;
     /*background-color: #2c3e50;*/
     margin: 10px;
-    padding: 15px;
+    /*padding: 15px;*/
   }
 
   .upvote {
@@ -111,7 +116,7 @@
       <h2>By {{ entry.user && entry.user.name ?  entry.user.name : 'unknown' }}</h2>
     </div>
 
-    <div class="details row center-xs">
+    <div class="details row center-xs left-md">
       <!-- Side menu -->
       <div class="details-menu col-xs-12 col-sm-12 col-md-12 col-lg-3 last-xs last-sm last-md">
         <div class="row center-xs">
@@ -125,7 +130,7 @@
               <i class="icon ion-image"></i> Images
             </div>
           </div>
- -->          
+ -->
 <!--           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="upvote" @click="upvote">
               <i class="icon ion-arrow-up-a"></i> {{ entry.upvotes || '0' }}
@@ -136,11 +141,13 @@
               <i class="icon ion-arrow-down-a"></i> {{ entry.downvotes || '0' }}
             </div>
           </div>
- -->          
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg">
+ -->
+          <div
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg"
+          >
             <div class="content description">
               <h3>Description</h3>
-              {{ entry.description || '' }}
+              {{ entry.description || 'kaas' }}
             </div>
           </div>
         </div>
