@@ -1,3 +1,7 @@
+<style>
+  #disqus_thread a { color: #cd9600; }
+</style>
+
 <style scoped>
   .details-menu {
     margin: 0;
@@ -143,11 +147,25 @@
           </div>
  -->
           <div
+            v-if="entry && entry.description"
             class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg"
           >
             <div class="content description">
               <h3>Description</h3>
-              {{ entry.description || 'kaas' }}
+              {{ entry.description || '' }}
+            </div>
+          </div>
+
+          <div
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg"
+          >
+            <div class="content description">
+              <h3>Discussion</h3>
+              <vue-disqus
+                shortname="nadespots"
+                url="https://www.nadespots.com"
+                :identifier="this.$route.params.detailId"
+              ></vue-disqus>
             </div>
           </div>
         </div>
