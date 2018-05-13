@@ -157,14 +157,15 @@
           </div>
 
           <div
+            v-if="$route.params.detailId"
             class="col-xs-12 col-sm-12 col-md-12 col-lg-12 first-xs first-sm first-md last-lg"
           >
             <div class="content description">
               <h3>Discussion</h3>
               <vue-disqus
+                :title="entry && entry.name ? entry.name : ''"
                 shortname="nadespots"
-                url="https://www.nadespots.com"
-                :identifier="this.$route.params.detailId"
+                :identifier="$route.params.detailId"
               ></vue-disqus>
             </div>
           </div>
@@ -188,6 +189,7 @@
 </template>
 
 <script>
+  import VueDisqus from 'vue-disqus/dist/vue-disqus.vue'
   import MUTATION_ADD_UPVOTE_ON_USER from '@/graphql/MUTATION_ADD_UPVOTE_ON_USER'
   import MUTATION_ADD_DOWNVOTE_ON_USER from '@/graphql/MUTATION_ADD_DOWNVOTE_ON_USER'
   import Player from '../components/Player'
@@ -195,7 +197,7 @@
   export default {
     name: 'Details',
     props: ['entries', 'user'],
-    components: { Player },
+    components: { Player, VueDisqus },
     computed: {
       entry () {
         if (!this.entries) return null

@@ -10,7 +10,6 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import Vuelidate from 'vuelidate'
 
 import Youtube from 'vue-youtube-embed'
-import VueDisqus from 'vue-disqus'
 
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
@@ -74,9 +73,6 @@ Vue.use(Meta)
 
 // Setting up Youtube player
 Vue.use(Youtube)
-
-// Setting up Disqus for discussions
-Vue.use(VueDisqus)
 
 // Setting up form validation
 Vue.use(Vuelidate)
