@@ -19,7 +19,6 @@
 <template>
   <div ref="container" class="map-container">
     <gmap-map
-      v-if="sourceImgLoaded"
       ref="map"
       :class="{ map: true, loaded: mapLoaded }"
       :center="{ lat: 0, lng: 0 }"
@@ -31,7 +30,6 @@
       }"
       :zoom="1"
       :mapTypeControl="false"
-      @idle="handleMapLoaded"
       @maptypeid_changed="handleMapTypeIdChange"
       @click="handleMapClick"
       @rightclick="$emit('rightclick')"
@@ -150,6 +148,16 @@
       this.sourceImg.src = this.minimap.url;
       this.sourceImg.addEventListener('load', () => this.sourceImgLoaded = true);
 
+      const sourceImgPromise = new Promise((resolve) => {
+        this.sourceImg.addEventListener('load', () => resolve());
+      });
+
+      Promise.all([this.$refs.map.$mapPromise, sourceImgPromise])
+        .then(() => {
+          this.handleMapLoaded();
+          this.drawEntriesOnce();
+        });
+
       this.$refs.map.resizePreserveCenter()
       window.addEventListener('resize', this.restoreCenter);
     },
@@ -175,12 +183,10 @@
         const projection = this.$refs.map.$mapObject.getProjection();
         const coord = projection.fromPointToLatLng(new google.maps.Point(x, y));
 
-        console.log('setCenter', coord.lat(), coord.lng());
         this.$refs.map.$mapObject.setCenter(coord);
       },
 
       drawEntries() {
-        console.log('drawEntries');
         const projection = this.$refs.map.$mapObject.getProjection();
 
         this.entries.forEach((entry) => {
