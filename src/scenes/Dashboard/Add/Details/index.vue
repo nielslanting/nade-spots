@@ -14,7 +14,9 @@
   }
 
   .input-row {
-  } 
+    max-width: 1024px;
+    margin: auto;
+  }
 
   .box {
     text-align: left;
@@ -22,7 +24,7 @@
     margin-top: 10px;
     padding: 20px;
     border-radius: 3px;
-  } 
+  }
 
   .box > div {
     padding-bottom: 10px;
@@ -112,7 +114,7 @@
         <div>
           Type: <br />
           <select @change="handleTypeChange">
-            <option 
+            <option
               v-for="type in types" :value="type.id"
             >
               {{ type.name }}
@@ -124,7 +126,7 @@
         <div>
           Usage: <br />
           <select @change="handleUsageChange">
-            <option 
+            <option
               v-for="usage in usages" :value="usage"
             >
               {{ usage }}
@@ -146,7 +148,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 center-xs">
       <div class="box map-container">
         <span>
-          Draw a line by clicking on the map 
+          Draw a line by clicking on the map
         </span>
         <nade-map
           v-if="minimap"
@@ -190,7 +192,7 @@
           }"
         >
           <i class="icon ion-checkmark"></i>
-          Next step      
+          Next step
         </router-link>
 
       </div>
@@ -232,13 +234,14 @@
         this.type = this.types[e.target.selectedIndex].id
       },
       handleMapClick (e) {
-        console.log('handleMapClick', e)
+        console.log('handleMapClick start', e)
 
         const location = Object.entries(e)
         .filter(([ key, value ]) => {
           console.log('key', key, 'value', value)
           if (key === 'latLng') return false
           if (key === 'pixel') return false
+          if (key === 'va') return false
           if (!value.x) return false
           if (!value.y) return false
 
@@ -246,7 +249,7 @@
         })
         .map(([key, value]) => value)[0]
 
-        console.log('handleMapClick', location)
+        console.log('handleMapClick end', location)
         this.locations.push(location)
       },
       handleMapRightClick () {
