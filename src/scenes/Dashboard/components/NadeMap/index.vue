@@ -238,7 +238,7 @@
       restoreCenter() {
         const map = this.$refs.map.$mapObject;
         var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
+        google.maps.event.trigger(map, 'resize');
         map.setCenter(center);
       },
 

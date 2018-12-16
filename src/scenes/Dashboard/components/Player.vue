@@ -73,7 +73,9 @@
           this.refreshPlayer = false
         })
       },
-      handlePlaying (player) {
+      handlePlaying () {
+        const player = this.$refs.youtube.player
+
         this.$emit('playing', player)
         clearTimeout(this.resetVideoTimeout)
 
