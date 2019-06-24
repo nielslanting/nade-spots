@@ -14,7 +14,9 @@
 
     background-color: #2c3e50;
     color: #ecf0f1;
-
+  }
+  
+  #app {  
     padding: 20px;
     padding-bottom: 30px;
     padding-top: 0;
