@@ -5,6 +5,9 @@
 ## Demo
 [Live website](https://www.nadespots.com)
 
+## Demo for a game
+[Game](https://www.nadespots.com/black-squad/)
+
 ## Build Setup
 
 ``` bash
